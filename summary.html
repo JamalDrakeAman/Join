@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1" />
+        <link rel="icon" type="image/x-icon" href="./assets/icons/join-logo-light.png" />
+        <title>Join - Summary</title>
+
+        <script src="./script.js" defer></script>
+        <script src="./scripts/summary.js"></script>
+        <script src="./scripts/board.js"></script>
+        <script src="./scripts/data.js"></script>
+        <script src="./scripts/fetch.js"></script>
+        <script src="./assets/templates/template.js"></script>
+
+        <link rel="stylesheet" href="./style.css" />
+        <link rel="stylesheet" href="./styles/header-sidebar.css" />
+        <link rel="stylesheet" href="./styles/summery.css" />
+
+        <link rel="stylesheet" href="./styles/responsive/summary-responsive.css" />
+        <link rel="stylesheet" href="./styles/responsive/responsive.css" />
+    </head>
+
+    <body onload="summaryInit();markedPage('summary-link', 'activePage')" onclick="classChangeAction('user-menu', 'd-none', 'add'); classChangeAction('menu', 'menu-active', 'remove'); stopEventBubbling(event);" class="column">
+        <section id="join-header"></section>
+
+        <main class="summary-main-content">
+            <div class="summary-headline-container">
+                <h1 class="headline">Join 360</h1>
+                Key Metrics at a Glance
+                <span class="underline"></span>
+            </div>
+
+            <div class="summary-container">
+                <div class="summerys-box1">
+                    <div onclick="goToSummaryTask('todo')" class="summary-todo-btn">
+                        <svg class="summary-icon" width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="35.3945" cy="34.8083" r="34.5" fill="#2A3647" />
+                            <path d="M26.0612 44.1418H27.9279L39.4279 32.6418L37.5612 30.7751L26.0612 42.2751V44.1418ZM45.1279 30.7084L39.4612 25.1084L41.3279 23.2418C41.839 22.7307 42.4668 22.4751 43.2112 22.4751C43.9556 22.4751 44.5834 22.7307 45.0945 23.2418L46.9612 25.1084C47.4723 25.6195 47.739 26.2362 47.7612 26.9584C47.7834 27.6807 47.539 28.2973 47.0279 28.8084L45.1279 30.7084ZM43.1945 32.6751L29.0612 46.8084H23.3945V41.1418L37.5279 27.0084L43.1945 32.6751Z" fill="white" />
+                        </svg>
+                        <div class="summary-counter"><span class="task-count" id="task-count-todo">0</span> To-do</div>
+                    </div>
+
+                    <div onclick="goToSummaryTask('done')" class="summary-done-btn">
+                        <svg class="summary-icon" width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="35" cy="35" r="34.5" fill="#2A3647" />
+                            <path d="M20.0283 35.0001L31.2571 46.0662L49.9717 23.9341" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div class="summary-counter"><span class="task-count" id="task-count-done">0</span> Done</div>
+                    </div>
+                </div>
+
+                <div class="summerys-box2">
+                    <div onclick="goToSummaryTask(upcomingDeadlineScroll)" class="summary-urgent-btn">
+                        <div class="urgent-count-box">
+                            <img class="summary-icon" src="./assets/icons/summary-urgent.png" alt="" />
+                            <div class="summary-counter"><span class="task-count" id="task-count-urgent">0</span> Urgent</div>
+                        </div>
+                        <span class="breakline"></span>
+                        <p class="deadline"><span class="urgent-date" id="earliest-urgent-date">No Due Date</span> Upcoming Deadline</p>
+                    </div>
+                </div>
+
+                <div class="summerys-box1">
+                    <a href="board.html" class="summary-task-btn">
+                        <div class="summary-counter">
+                            <span class="task-count" id="task-count-board">0</span> Tasks in <br />
+                            Board
+                        </div>
+                    </a>
+                    <div onclick="goToSummaryTask('progress')" class="summary-task-btn">
+                        <div class="summary-counter">
+                            <span class="task-count" id="task-count-progress">0</span> Tasks In <br />
+                            Progress
+                        </div>
+                    </div>
+                    <div onclick="goToSummaryTask('feedback')" class="summary-task-btn">
+                        <div class="summary-counter">
+                            <span class="task-count" id="task-count-feedback">0</span> Awaiting <br />
+                            feedback
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-greeting-container">
+                <span class="greeting-time" id="greeting-time"></span>
+                <span class="greeting-name" id="greeting-name"></span>
+            </div>
+        </main>
+
+        <section id="join-sidebar"></section>
+
+        <section class="mobile-greeting-animation">
+            <div class="summary-greeting-mobile-container">
+                <span class="greeting-time-mobile" id="greeting-time-mobile"></span>
+                <span class="greeting-name-mobile" id="greeting-name-mobile"></span>
+            </div>
+        </section>
+    </body>
+</html>

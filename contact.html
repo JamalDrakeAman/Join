@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <link rel="icon" type="image/x-icon" href="./assets/icons/join-logo-light.png" />
+
+    <title>Join - Contact</title>
+
+    <script defer src="./script.js"></script>
+
+    <script src="./scripts/fetch.js"></script>
+    <script src="./assets/templates/template.js"></script>
+    <script src="./scripts/board.js"></script>
+    <script src="./scripts/data.js"></script>
+    <script src="./scripts/validation.js"></script>
+    <script src="./scripts/contact.js"></script>
+
+
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./styles/header-sidebar.css" />
+
+    <link rel="stylesheet" href="./styles/contact.css" />
+
+    <link rel="stylesheet" href="./styles/responsive/responsive.css" />
+    <link rel="stylesheet" href="./styles/responsive/contact-responsive.css" />
+</head>
+
+<body class="column"
+    onclick="classChangeAction('menu', 'menu-active', 'remove'); classChangeAction('user-menu', 'd-none', 'add');stopEventBubbling(event)"
+    onload="initContacts(); markedPage('contact-link', 'activePage')">
+    <section id="join-header" class="join-header"></section>
+
+    <main class="contact-content">
+        <div class="contacts-mobile-container">
+            <div class="add-new-contact-desktop-sticky">
+                <button class="add-new-contact-desktop-btn"
+                    onclick="classChangeAction('dialog-add-contact', 'hide-overlay', 'remove')">
+                    Add new contact
+                    <img src="./assets/icons/person_add.png" alt="" />
+                </button>
+            </div>
+
+            <div id="contacts-container" class="column contacts-container"></div>
+            <button
+                onclick="classChangeAction('dialog-add-contact', 'hide-overlay', 'remove'); classChangeAction('add-contact', 'bg-color-blue', 'add'); stopEventBubbling(event)"
+                id="add-contact" class="add-contact-mobile-btn center"><img src="./assets/icons/add-contact-icon.png"
+                    alt="add Contact" /></button>
+        </div>
+
+        <div id="contacts-details-desktop-container" class="contacts-details-desktop-container">
+            <div class="headline d-flex">
+                <div class="contact-details-headline">
+                    Contacts
+                    <span class="contact-details-breakline"></span>
+                    <p class="headline-span">Better with a team</p>
+                </div>
+            </div>
+            <div class="current-contact d-flex" id="current-contact"></div>
+            <!-- <div class="details column" id="details"></div> -->
+        </div>
+    </main>
+
+    <section id="join-sidebar"></section>
+
+    <!-- start overlay add contact -->
+
+    <section id="dialog-add-contact" class="edit-overlay-bg hide-overlay"
+        onclick="classChangeAction('dialog-add-contact', 'hide-overlay', 'add'); classChangeAction('add-contact', 'bg-color-blue', 'remove'); stopEventBubbling(event)">
+        <form class="edit-overlay-form" onsubmit="addContact(); return false;" onclick="stopEventBubbling(event)">
+            <svg class="close-edit" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                onclick="classChangeAction('dialog-add-contact', 'hide-overlay', 'add');classChangeAction('add-contact', 'bg-color-blue', 'remove')">
+                <path
+                    d="M15.9998 17.4L11.0998 22.3C10.9165 22.4834 10.6831 22.575 10.3998 22.575C10.1165 22.575 9.88314 22.4834 9.6998 22.3C9.51647 22.1167 9.4248 21.8834 9.4248 21.6C9.4248 21.3167 9.51647 21.0834 9.6998 20.9L14.5998 16L9.6998 11.1C9.51647 10.9167 9.4248 10.6834 9.4248 10.4C9.4248 10.1167 9.51647 9.88338 9.6998 9.70005C9.88314 9.51672 10.1165 9.42505 10.3998 9.42505C10.6831 9.42505 10.9165 9.51672 11.0998 9.70005L15.9998 14.6L20.8998 9.70005C21.0831 9.51672 21.3165 9.42505 21.5998 9.42505C21.8831 9.42505 22.1165 9.51672 22.2998 9.70005C22.4831 9.88338 22.5748 10.1167 22.5748 10.4C22.5748 10.6834 22.4831 10.9167 22.2998 11.1L17.3998 16L22.2998 20.9C22.4831 21.0834 22.5748 21.3167 22.5748 21.6C22.5748 21.8834 22.4831 22.1167 22.2998 22.3C22.1165 22.4834 21.8831 22.575 21.5998 22.575C21.3165 22.575 21.0831 22.4834 20.8998 22.3L15.9998 17.4Z"
+                    fill="white" />
+            </svg>
+
+            <div class="overlay-header">
+                <div class="overlay-header-content">
+                    <h2 class="edit-headline">Add contcact</h2>
+                    <span class="subtitle">Task are better with a team!</span>
+                    <span class="blue-underline"></span>
+                </div>
+                <img class="edit-initals-container" src="./assets/icons/default-user-icon.png" />
+            </div>
+
+            <div class="edit-form-inputs">
+                <div class="edit-input">
+                    <input id="add-name-input" type="text" placeholder="Name" />
+                    <img src="./assets/icons/person.png" />
+                    <span class="form-error" id="name_error_add"></span>
+                </div>
+                <div class="edit-input">
+                    <input id="add-mail-input" type="text" placeholder="Email" />
+                    <img src="./assets/icons/mail.png" />
+                    <span class="form-error" id="email_error_add"></span>
+                </div>
+                <div class="edit-input">
+                    <input id="add-phone-input" type="number" placeholder="Phone" />
+                    <img src="./assets/icons/phone.png" />
+                    <span class="form-error" id="phone_error_add"></span>
+                </div>
+            </div>
+
+            <button class="add-cancel-btn"
+                onclick="classChangeAction('dialog-add-contact', 'hide-overlay', 'add')">Cancel</button>
+            <button id="submit-add-contact-btn" class="submit-btn" type="submit">Create contact <img
+                    src="./assets/icons/check.png" /></button>
+        </form>
+    </section>
+
+    <section id="dialog-add-succes" class="dialog">Contact successfully created</section>
+
+    <section id="edit-overlay-bg" class="edit-overlay-bg hide-overlay">
+        <form class="edit-overlay-form" onsubmit="editContact(); return false">
+            <svg class="close-edit" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                xmlns="http://www.w3.org/2000/svg" onclick="toggleOverlayDisplay()">
+                <path
+                    d="M15.9998 17.4L11.0998 22.3C10.9165 22.4834 10.6831 22.575 10.3998 22.575C10.1165 22.575 9.88314 22.4834 9.6998 22.3C9.51647 22.1167 9.4248 21.8834 9.4248 21.6C9.4248 21.3167 9.51647 21.0834 9.6998 20.9L14.5998 16L9.6998 11.1C9.51647 10.9167 9.4248 10.6834 9.4248 10.4C9.4248 10.1167 9.51647 9.88338 9.6998 9.70005C9.88314 9.51672 10.1165 9.42505 10.3998 9.42505C10.6831 9.42505 10.9165 9.51672 11.0998 9.70005L15.9998 14.6L20.8998 9.70005C21.0831 9.51672 21.3165 9.42505 21.5998 9.42505C21.8831 9.42505 22.1165 9.51672 22.2998 9.70005C22.4831 9.88338 22.5748 10.1167 22.5748 10.4C22.5748 10.6834 22.4831 10.9167 22.2998 11.1L17.3998 16L22.2998 20.9C22.4831 21.0834 22.5748 21.3167 22.5748 21.6C22.5748 21.8834 22.4831 22.1167 22.2998 22.3C22.1165 22.4834 21.8831 22.575 21.5998 22.575C21.3165 22.575 21.0831 22.4834 20.8998 22.3L15.9998 17.4Z"
+                    fill="white" />
+            </svg>
+
+            <div class="overlay-header">
+                <h2 class="edit-headline">
+                    Edit contact
+                    <span class="blue-underline"></span>
+                </h2>
+                <div id="edit-initals-container" class="edit-initals-container"></div>
+            </div>
+
+            <div class="edit-form-inputs">
+                <div class="edit-input">
+                    <input type="text" id="edit-name" />
+                    <img src="./assets/icons/person.png" />
+                    <span class="form-error" id="name_error_edit"></span>
+                </div>
+
+                <div class="edit-input">
+                    <input type="text" id="edit-email" />
+                    <img src="./assets/icons/mail.png" />
+                    <span class="form-error" id="email_error_edit"></span>
+                </div>
+
+                <div class="edit-input">
+                    <input type="number" id="edit-phone" />
+                    <img src="./assets/icons/phone.png" />
+                    <span class="form-error" id="phone_error_edit"></span>
+                </div>
+            </div>
+
+            <div id="edit-action-btns" class="edit-action-btns">
+                <button class="edit-delete-btn center" onclick="deleteContact(); return false">Delete</button>
+                <button class="edit-save-btn center">Save <img src="./assets/icons/check.png" alt="" /></button>
+            </div>
+
+            <div id="delete-user-popup" class="delete-user-popup-bg d-none"
+                onclick="deletePopUp(); stopEventBubbling(event)">
+                <div class="delete-user-popup" onclick="stopEventBubbling(event)">
+                    <h3>Delete User?</h3>
+                    <p>Are you sure you want to permanently delete this user?</p>
+
+                    <div class="delete-popup-btns-container">
+                        <button class="delete-popup-cancel-btn" onclick="deletePopUp(); return false">Cancel</button>
+                        <button class="delete-popup-yes-btn" onclick="deleteOwnUser()">Yes, Delete User</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </section>
+</body>
+
+</html>

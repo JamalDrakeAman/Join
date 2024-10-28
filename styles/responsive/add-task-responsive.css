@@ -1,0 +1,83 @@
+@media (max-width: 392px) {
+    .prio-btn {
+        padding: 8px 8px;
+        width: 88px;
+        gap: 4px;
+    }
+
+    .add-task-succes {
+        margin: 0 -34% !important;
+    }
+
+}
+
+@media (max-width: 1024px) {
+    .add-task-main-content {
+        margin-left: 0;
+    }
+
+    .add-task-action-btn {
+        display: none;
+    }
+
+    .add-task-succes {
+        margin: 0 -15%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .prio-btn {
+        width: 116px;
+        padding: 12px 16px;
+        margin-top: 12px;
+    }
+
+    .submit-row {
+        display: none;
+    }
+
+    .add-task-form {
+        flex-direction: row;
+        gap: 60px;
+        padding: 0 40px;
+    }
+
+    .task-details {
+        width: 100%;
+        padding-right: 60px;
+        border-right: 1px solid var(--medium-grey);
+    }
+
+    .task-settings {
+        width: 100%;
+    }
+
+    .add-task-main-content {
+        flex-direction: row;
+        position: relative;
+    }
+
+    .add-task-headline {
+        position: absolute;
+        top: -164px;
+        font-size: 61px;
+    }
+
+    .required-info-mobile{
+        display: none;
+    }
+
+    .subtasks-container {
+        position: absolute;
+    }
+}
+
+@media (min-width: 1440px) {
+    .add-task-main-content {
+        margin-left: 232px;
+    }
+
+    .submit-row {
+        margin-left: 232px;
+    }
+}

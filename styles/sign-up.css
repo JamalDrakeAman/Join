@@ -1,0 +1,326 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--light-grey);
+}
+
+form {
+    height: 100vh;
+    width: 100vw;
+}
+
+h1 {
+    font-size: 47px;
+}
+
+.site-logo {
+    position: absolute;
+    top: 37px;
+    left: 38px;
+    width: 64px;
+    height: 78px;
+}
+
+.sign-up-headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 173px;
+    font-size: 47px;
+    gap: 16px;
+}
+
+.blue-underline {
+    width: 88px;
+    border: solid 2px var(--light-blue);
+    border-radius: 3px;
+}
+
+.sign-up-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 595px;
+    width: 396px;
+    padding: 32px 0;
+    gap: 16px;
+    gap: 30px;
+    border-radius: 30px;
+    box-shadow: 2px 2px 13px 5px rgba(0, 0, 0, 0.1);
+    background-color: var(--white);
+}
+
+.sign-up-container {
+    gap: 24px;
+}
+
+.sign-up-container img {
+    object-fit: cover;
+    width: 20px;
+    height: 21px;
+}
+
+.sign-up-form-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 364px;
+    height: 50px;
+    border: solid 1px lightgrey;
+    border-radius: 10px;
+    gap: 18px;
+    padding: 13px 21px;
+}
+
+.sign-up-form-inputs img {
+    height: 21px;
+    object-fit: cover;
+}
+
+.sign-up-form-inputs input {
+    font-size: 20px;
+    font-weight: 400;
+    width: 56px;
+    height: 24px;
+    flex: 1;
+    border: none;
+}
+
+.sign-up-form-inputs input:focus {
+    outline: none;
+}
+
+.sign-up-form-inputs input::placeholder {
+    color: #d1d1d1;
+}
+
+.sign-up-btn {
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 4px 0px;
+    width: 180px;
+    height: 51px;
+    border-radius: 8px;
+    background-color: var(--darke-blue);
+    transition: all ease-in-out 125ms;
+    border: unset;
+}
+
+.sign-up-btn:hover {
+    background-color: var(--light-blue);
+    scale: 1.1;
+}
+
+.sign-up-btn:active {
+    scale: 0.9;
+}
+
+.back-btn {
+    position: absolute;
+    top: 64px;
+    left: 50px;
+    border-radius: 50%;
+    transition: all ease-in-out 125ms;
+}
+
+.back-btn:hover {
+    cursor: pointer;
+    background-color: var(--medium-grey);
+    scale: 1.1;
+}
+
+.back-btn:active {
+    scale: 0.9;
+}
+
+.gap-signup-logo-content {
+    gap: 68px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 194px;
+}
+
+.logo-login {
+    height: 78px;
+    width: 64px;
+    position: absolute;
+    top: 59px;
+    left: 57px;
+}
+
+.logo-signup-container {
+    width: 396px;
+    justify-content: start;
+    display: flex;
+}
+
+.checkbox-privacy-policy {
+    width: 231px;
+    height: 24px;
+    position: relative;
+}
+
+.font-size-16 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.footer-container {
+    width: 246px;
+    height: 35px;
+    font-size: 16px;
+    justify-content: space-between;
+}
+
+.overlay {
+    position: absolute;
+    background-color: var(--light-blue-light);
+    border: 2px solid var(--light-blue);
+    z-index: 999;
+    animation: fadeOut 2s forwards;
+    flex: 1;
+}
+
+.error-message-name {
+    color: var(--red);
+    font-size: 12px;
+    position: absolute;
+    top: 19.5%;
+    left: 31%;
+    display: none;
+}
+
+.error-message-name.visible {
+    display: block !important;
+}
+
+.error-message-email {
+    color: var(--red);
+    font-size: 12px;
+    position: absolute;
+    top: 47%;
+    left: 31%;
+    display: none;
+}
+
+.error-message-email.visible {
+    display: block !important;
+}
+
+.error-message-password {
+    color: var(--red);
+    font-size: 12px;
+    position: absolute;
+    top: 73.5%;
+    left: 29%;
+    display: none;
+}
+
+.error-message-password.visible {
+    display: block !important;
+}
+
+.error-message-conf-password {
+    color: var(--red);
+    font-size: 12px;
+    position: absolute;
+    top: 101.5%;
+    left: 14%;
+
+    display: none;
+}
+
+.error-message-conf-password.visible {
+    display: block !important;
+}
+
+.error-message-checkbox {
+    color: var(--red);
+    font-size: 12px;
+    position: absolute;
+    top: 120%;
+    left: -5px;
+    right: -14px;
+    display: none;
+}
+
+.error-message-checkbox.visible {
+    display: block;
+}
+
+.red-border {
+    border: 1px solid var(--red);
+}
+
+.dialog {
+    position: absolute;
+    align-self: center;
+    bottom: 0;
+    height: 64px;
+    transition: 100ms ease-in-out;
+    transform: translateY(70px);
+    background-color: var(--darke-blue);
+    color: var(--white);
+    padding: 16px;
+    font-size: 16px;
+    text-wrap: nowrap;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.dialog-active {
+    transform: translateY(-50vh);
+}
+
+.form-inputs-container {
+    gap: 24px;
+    position: relative;
+}
+
+.height {
+    height: 78px;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.shake {
+    animation: shake 0.3s ease;
+}
+
+.content {
+    padding: 0;
+}
+
+.link,
+.link:visited {
+    color: var(--light-blue);
+}
+
+a,
+a:visited {
+    color: var(--dark-grey);
+}

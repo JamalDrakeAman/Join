@@ -1,0 +1,173 @@
+@font-face {
+    font-family: inter;
+    src: url(./assets/fonts/Inter-VariableFont_opsz_wght.ttf);
+}
+
+:root {
+    --light-blue: #29abe2;
+    --darke-blue: #2a3647;
+    --hover-darke-blue: #091931;
+    --urgent: #ff3d00;
+    --medium: #ffa800;
+    --low: #7ae229;
+    --story: #0038ff;
+    --technical: #1fd7c1;
+    --sidebar-color: #cdcdcd;
+    --light-grey: #f6f7f8;
+    --medium-grey: #e7e7e7;
+    --dark-grey: #a8a8a8;
+    --placeholder-grey: #d1d1d1;
+    --white: #fff;
+    --subtitle: #2a3647;
+    --required: #ff8190;
+    --red: #ff001f;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: inter;
+}
+
+a{
+    color: #2E7CEE;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(42, 55, 71, 0.4);
+    overflow-x: hidden;
+}
+
+.main {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--light-grey);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #2DABE2;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #1b8bb5;
+}
+
+
+
+.content {
+    padding: 25px 16px 48px 16px;
+    text-wrap: wrap;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.low {
+    background-color: var(--low) !important;
+    color: var(--white);
+}
+
+.medium {
+    background-color: var(--medium) !important;
+    color: var(--white);
+}
+
+.urgent {
+    background-color: var(--urgent) !important;
+    color: var(--white);
+}
+
+.user-stoty {
+    background-color: #0038ff;
+}
+
+.technical-task {
+    background-color: #20d7c1;
+}
+
+
+.bg-color-blue {
+    background-color: var(--light-blue) !important;
+}
+
+.activePage {
+    background-color: var(--hover-darke-blue);
+}
+
+
+.form-error {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    color: red;
+    position: absolute;
+    bottom: -20px;
+}
+
+.error-message {
+    animation: error 0.5s ease;
+}
+
+@keyframes error {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}

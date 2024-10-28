@@ -1,0 +1,95 @@
+.content {
+    padding: 25px 16px 48px 16px;
+    text-wrap: wrap;
+    background-color: var(--light-grey);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.headline-back {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    max-width: 1016px;
+}
+
+.legal-back-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.legal-back-icon:hover {
+    scale: 1.1;
+}
+
+.scroll-area {
+    overflow-y: auto;
+}
+
+.text-blue {
+    color: var(--light-blue);
+}
+
+.help-content {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 1016px;
+}
+
+.how-to-use {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.solo-column::marker {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.headline {
+    justify-content: space-between;
+}
+
+.privacy-police-content {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    max-width: 1016px;
+}
+
+.subtitle-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.headline {
+    justify-content: space-between;
+}
+
+h2 {
+    margin-top: 24px;
+}
+
+h3 {
+    margin-top: 16px;
+}
+
+.legal-notice {
+    max-width: 1016px;
+}
+
+.legal-notice ul {
+    margin-top: 16px;
+}
+
+.headline {
+    justify-content: space-between;
+}

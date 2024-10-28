@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1" />
+
+    <link rel="icon" type="image/x-icon" href="./assets/icons/join-logo-light.png">
+
+    <title>Join - Contact Details</title>
+
+    <script src="./script.js" defer></script>
+    <script src="./scripts/fetch.js"></script>
+    <script src="./scripts/data.js"></script>
+    <script src="./scripts/validation.js"></script>
+    <script src="./scripts/contact.js"></script>
+    <script src="./assets/templates/template.js"></script>
+
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./styles/contact.css" />
+    <link rel="stylesheet" href="./styles/header-sidebar.css">
+
+    <link rel="stylesheet" href="./styles/responsive/responsive.css">
+    <link rel="stylesheet" href="./styles/responsive/contact-responsive.css">
+</head>
+
+
+<body class="column" onload="showContact(); markedPage('contact-link', 'activePage')"
+    onclick="classChangeAction('user-menu', 'd-none', 'add'); classChangeAction('menu', 'menu-active', 'remove'); classChangeAction('edit-contact', 'menu-active', 'remove'), stopEventBubbling(event);">
+
+    <section id="join-header" class="join-header"></section>
+
+    <main class="contact-details-main-content">
+
+        <div class="details-headline">
+            <div class="headline-text column">
+                <h1>Contacts</h1>
+                <span class="subtitle-details">Better with a team</span>
+                <div class="add-contact-underline"></div>
+            </div>
+            <a onclick="history.back()" href="contact.html"><img src="./assets/icons/left-arrow.png"
+                    alt="Back Link" /></a>
+        </div>
+
+        <div id="current-contact" class="current-contact d-flex"></div>
+
+        <button id="edit-button" class="add-contact-mobile-btn center"
+            onclick="classChangeAction('edit-contact', 'menu-active', 'toggle'); stopEventBubbling(event)">
+            <img src="./assets/icons/more_vert.png " alt="edit-contact " />
+        </button>
+    </main>
+
+    <div id="edit-contact" class="edit-container column center ">
+        <div class="edit-contact d-flex " onclick="toggleOverlayDisplay()">
+            <img src="./assets/icons/edit.png " alt="Edit Button" /> Edit
+        </div>
+
+        <div class="edit-contact d-flex " onclick="deleteContact()">
+            <img src="./assets/icons/delete.png " alt="Delete Button" /> Delete
+        </div>
+    </div>
+
+    <section id="join-sidebar"></section>
+
+
+    <Section id="edit-overlay-bg" class="edit-overlay-bg hide-overlay">
+        <form class="edit-overlay-form" onsubmit="editContact(); return false">
+
+            <img class="close-edit" src="./assets/icons/close.png" alt="" onclick="toggleOverlayDisplay()">
+
+            <div class="overlay-header">
+                <h2 class="edit-headline">Edit contact
+                    <span class="blue-underline"></span>
+                </h2>
+                <div id="edit-initals-container" class="edit-initals-container"></div>
+            </div>
+
+            <div class="edit-form-inputs">
+                <div class="edit-input">
+                    <input type="text" id="edit-name">
+                    <img src="./assets/icons/person.png" />
+                    <span class="form-error" id="name_error_edit"></span>
+                </div>
+
+                <div class="edit-input">
+                    <input type="text" id="edit-email">
+                    <img src="./assets/icons/mail.png" />
+                    <span class="form-error" id="email_error_edit"></span>
+                </div>
+
+                <div class="edit-input">
+                    <input type="text" id="edit-phone">
+                    <img src="./assets/icons/phone.png" />
+                    <span class="form-error" id="phone_error_edit"></span>
+                </div>
+            </div>
+
+            <div id="edit-action-btns" class="edit-action-btns">
+                <button class="edit-delete-btn center" onclick="deleteContact(); return false">Delete</button>
+                <button class="edit-save-btn center">Save <img src="./assets/icons/check.png" alt=""></button>
+            </div>
+
+            <div id="delete-user-popup" class="delete-user-popup-bg d-none"
+                onclick="deletePopUp(); stopEventBubbling(event)">
+                <div class="delete-user-popup" onclick="stopEventBubbling(event)">
+                    <h3>Delete User?</h3>
+                    <p>Are you sure you want to permanently delete this user?</p>
+
+                    <div class="delete-popup-btns-container">
+                        <button class="delete-popup-cancel-btn" onclick="deletePopUp();return false">Cancel</button>
+                        <button class="delete-popup-yes-btn" onclick="deleteOwnUser()">Yes, Delete User</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </Section>
+
+</body>
+
+</html>

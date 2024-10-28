@@ -1,0 +1,657 @@
+.contact-content {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    background-color: var(--light-grey);
+}
+
+.contact-details-main-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--light-grey);
+    padding: 25px 16px 48px 16px;
+    text-wrap: wrap;
+    max-width: 1920px;
+}
+
+.add-new-contact-desktop-sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+    background-color: white;
+    z-index: 1;
+}
+
+.add-new-contact-desktop-btn {
+    font-size: 21px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 90%;
+    height: 56px;
+    border-radius: 10px;
+    border: none;
+    gap: 16px;
+    background-color: #2a3647;
+}
+
+.add-new-contact-desktop-btn:hover {
+    background-color: var(--light-blue);
+    box-shadow: 2px 4px 7px 0px rgba(0, 0, 0, 0.5);
+}
+
+.add-contact-mobile-btn {
+    position: absolute;
+    bottom: 96px;
+    right: 8px;
+    width: min-content;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: var(--darke-blue);
+    border: unset;
+    outline: unset;
+}
+
+.contacts-container {
+    gap: 16px;
+    padding: 15px 30px 25px;
+    height: 100%;
+    width: 100%;
+}
+
+.contacts-mobile-container {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.contacts-first-letter {
+    font-size: 20px;
+    font-weight: 400;
+    border-bottom: solid lightgray;
+    padding: 25px 50px;
+    transition: all ease-in-out 125ms;
+}
+
+.contact-list {
+    gap: 25px;
+    width: 100%;
+    min-height: 70px;
+    align-items: center;
+    padding: 0 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all ease-in-out 125ms;
+}
+
+.contact-list:hover {
+    background-color: lightgray;
+    scale: 1.1;
+}
+
+.contact-list:active {
+    scale: 0.9;
+    background-color: lightblue;
+}
+
+.contact-initials {
+    min-height: 50px;
+    min-width: 50px;
+    color: white;
+    text-shadow: 0px 2px 11px black;
+    border-radius: 50%;
+    border: solid 1px;
+}
+
+.contact-highlight {
+    background-color: var(--darke-blue);
+    color: white;
+}
+
+.contacts-details-desktop-container {
+    padding: 70px 16px 48px 50px;
+    flex: 1;
+}
+
+.contact-details-headline {
+    font-size: 61px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.details-headline {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contact-details-breakline {
+    height: 59px;
+    background-color: var(--light-blue);
+    width: 3px;
+}
+
+.headline-span {
+    font-size: 27px;
+    font-weight: 400;
+}
+
+.current-contact {
+    gap: 18px;
+    margin-top: 32px;
+    align-items: center;
+}
+
+.subtitle-details {
+    font-size: 14px;
+    color: var(--subtitle);
+}
+
+.headline-text {
+    gap: 8px;
+}
+
+.detail-container {
+    display: flex;
+    flex-direction: column;
+    height: 364px;
+    gap: 35px;
+
+    animation-name: contact;
+    animation-duration: 300ms;
+    animation-timing-function: ease-in-out;
+}
+
+.contact-name-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 120px;
+    gap: 30px;
+}
+
+.name-initals {
+    font-size: 47px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 120px;
+    max-width: 120px;
+    min-height: 120px;
+    min-width: 120px;
+    border-radius: 50%;
+    background-color: orange;
+    border: solid 2px white;
+}
+
+.name-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 47px;
+    height: 88px;
+    font-weight: 500;
+    width: 100%;
+    text-wrap: wrap;
+}
+
+.edit-details-btns {
+    display: flex;
+    width: 159px;
+    height: 24px;
+    justify-content: space-between;
+}
+
+.edit-details-btns button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 62px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background-color: unset;
+    cursor: pointer;
+}
+
+.edit-details-btns button:hover {
+    scale: 1.1;
+}
+
+.info-headline {
+    font-size: 20px;
+}
+
+.contact-info-box {
+    display: flex;
+    height: 128px;
+    width: 140px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+@keyframes contact {
+    0% {
+        transform: translateX(100vw);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.edit-container {
+    position: absolute;
+    bottom: 96px;
+    right: 6px;
+    width: 116px;
+    height: 100px;
+    justify-content: space-around;
+    border-radius: 16px 16px 0 16px;
+    box-shadow: 0px 6px 20px -4px rgba(0, 0, 0, 0.8);
+    background-color: white;
+    transform: translateX(150px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.edit-container div {
+    gap: 14px;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+    border-radius: 16px;
+    padding: 0 10px;
+}
+
+.edit-container div:hover {
+    background-color: var(--medium-grey);
+    cursor: pointer;
+}
+
+.hide-overlay {
+    transform: translateY(100vh);
+}
+
+.edit-overlay-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: all ease-in-out 125ms;
+    z-index: 2;
+}
+
+.edit-overlay-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 396px;
+    max-height: 650px;
+    border-radius: 30px;
+    overflow: hidden;
+    padding-bottom: 40px;
+    background-color: white;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.3) 2px 1px 9px 7px;
+}
+
+.close-edit {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all ease-in-out 125ms;
+}
+
+.close-edit:hover {
+    scale: 1.1;
+}
+
+.overlay-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 351px;
+    width: 100%;
+    background-color: var(--darke-blue);
+    padding: 20px;
+}
+
+.edit-headline {
+    align-self: start;
+    font-size: 47px;
+    color: white;
+}
+
+.blue-underline {
+    display: flex;
+    flex-direction: column;
+    width: 90px;
+    border: solid 2px var(--light-blue);
+}
+
+.edit-initals-container {
+    display: flex;
+    font-size: 47px;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -50px;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+}
+
+.edit-initals {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: 50%;
+    flex-direction: column;
+    border: solid 2px white;
+}
+
+.change-color {
+    color: black;
+    position: absolute;
+    width: 75px;
+    text-align: center;
+    height: 35px;
+    font-size: 14px;
+    bottom: -38px;
+    border: solid 1px var(--dark-grey);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all ease-in-out 100ms;
+}
+
+.change-color summary {
+    display: flex;
+}
+
+.change-color summary:hover {
+    scale: 1.1;
+}
+
+
+input[type="color"] {
+    -webkit-appearance: none;
+    border: 2px solid #333;
+    border-radius: 10px;
+    width: 60px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="color"]:hover {
+    scale: 1.1;
+}
+
+
+.edit-form-inputs {
+    padding: 80px 20px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 396px;
+    width: 100%;
+    gap: 24px;
+}
+
+.edit-input {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px var(--dark-grey);
+    height: 41px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0 15px;
+}
+
+.edit-input input {
+    font-size: 20px;
+    border: none;
+    width: 100%;
+}
+
+.edit-input input:focus {
+    outline: none;
+}
+
+
+
+.edit-action-btns {
+    width: 201px;
+    height: 51px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-delete-btn {
+    font-size: 20px;
+    color: var(--darke-blue);
+    width: 82px;
+    height: 51px;
+    border: solid 1px var(--darke-blue);
+    border-radius: 10px;
+    transition: all ease-in-out 125ms;
+    background-color: white;
+}
+
+.edit-delete-btn:hover {
+    color: var(--light-blue);
+    scale: 1.1;
+    border: solid 1px var(--light-blue);
+}
+
+.edit-delete-btn:active {
+    scale: 0.9;
+}
+
+.edit-save-btn {
+    font-size: 20px;
+    color: white;
+    width: 99px;
+    height: 51px;
+    border: solid 1px;
+    border-radius: 10px;
+    gap: 4px;
+    background-color: var(--darke-blue);
+    transition: all ease-in-out 125ms;
+}
+
+.edit-save-btn:hover {
+    scale: 1.1;
+    background-color: var(--light-blue);
+}
+
+.edit-save-btn:active {
+    scale: 0.9;
+}
+
+.subtitle {
+    font-size: 20px;
+    color: var(--white);
+    align-self: start;
+    margin-top: 6px;
+    font-weight: 200;
+}
+
+.blue-underline {
+    align-self: start;
+    margin-top: 12px;
+}
+
+.add-overlay-buttons {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 54px;
+}
+
+.submit-btn {
+    font-size: 20px;
+    color: white;
+    padding: 16px 8px;
+    border: solid 1px;
+    border-radius: 10px;
+    gap: 4px;
+    background-color: var(--darke-blue);
+    transition: all ease-in-out 100ms;
+}
+
+.submit-btn:hover {
+    background-color: var(--light-blue);
+    box-shadow: 2px 4px 7px 0px rgba(0, 0, 0, 0.5);
+}
+
+.submit-btn:disabled {
+    background-color: var(--light-blue);
+}
+
+.submit-btn img {
+    width: 20px;
+    margin-left: 4px;
+}
+
+.clear-btn-add-contact {
+    width: 180px;
+    height: 100%;
+    font-size: 20px;
+    border: unset;
+    border-radius: 10px;
+    gap: 4px;
+    background-color: unset;
+    border: 1px solid var(--dark-grey);
+    transition: all ease-in-out 125ms;
+}
+
+.overlay-header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.add-cancel-btn {
+    font-size: 20px;
+    width: 126px;
+    height: 56px;
+    border: solid 1px var(--dark-grey);
+    border-radius: 10px;
+    background-color: unset;
+    position: absolute;
+    bottom: 110px;
+    right: 330px;
+
+    transition: all ease-in-out 100ms;
+}
+
+.add-cancel-btn:hover {
+    color: var(--light-blue);
+    border: solid 2px var(--light-blue);
+    box-shadow: 2px 4px 7px 0px rgba(0, 0, 0, 0.5);
+}
+
+.dialog {
+    position: absolute;
+    align-self: center;
+    bottom: 0;
+    transition: 125ms ease-in-out;
+    transform: translateY(80px);
+    background-color: var(--darke-blue);
+    color: var(--white);
+    padding: 16px;
+    font-size: 14px;
+    width: min-content;
+    text-wrap: nowrap;
+    border-radius: 12px;
+}
+
+.dialog-active {
+    transform: translateY(-120px);
+}
+
+.delete-user-popup-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.delete-user-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    height: 300px;
+    width: 300px;
+    border-radius: 30px;
+    background-color: white;
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+
+}
+
+.delete-popup-btns-container {
+    display: flex;
+    gap: 20px;
+}
+
+.delete-popup-cancel-btn {
+    font-size: 16px;
+    height: 50px;
+    border-radius: 10px;
+    width: 80px;
+}
+
+.delete-popup-yes-btn {
+    font-size: 16px;
+    height: 50px;
+    border-radius: 10px;
+    width: 150px;
+    background-color: rgba(251, 61, 1, 0.5);
+    transition: all ease-in-out 100ms;
+}
+
+.delete-popup-yes-btn:hover {
+    background-color: rgba(251, 61, 1, 1.0);
+}
+
+.hide-overlay-desktop {
+    transform: translateX(100vw);
+}

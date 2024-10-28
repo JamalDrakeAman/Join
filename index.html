@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1" />
+    <link rel="icon" type="image/x-icon" href="./assets/icons/join-logo-light.png">
+    <title>Join - Login</title>
+
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./styles/login.css">
+    <link rel="stylesheet" href="./styles/responsive/login-responisve.css">
+
+    <script defer src="./script.js"></script>
+    <script src="./assets/templates/template.js"></script>
+    <script src="./scripts/login.js"></script>
+    <script src="./scripts/fetch.js"></script>
+
+
+</head>
+
+<body onload="loginInit()">
+
+    <div class="overlay">
+        <img id="svg-image-small-content" src="./assets/icons/logo-light.svg" alt="SVG Image" class="svg-img">
+        <img id="svg-image-large-content" src="./assets/icons/logo-dark.svg" alt="SVG Image" class="svg-img">
+    </div>
+
+    <form class="d-flex center gap-login-logo-content">
+        <div class="logo-login-container">
+            <img id="loginSvg" class="logo-login logo-large-content" src="./assets/icons/logo-dark.svg" alt="">
+            <div class="empty-container"></div>
+            <div class="signup-container-top d-flex center" id="content-large">
+                <p>Not a Join user?</p>
+                <a href="./sign-up.html">
+                    <button type="button" id="signupButton-desktop" class="signup-button login-button-top">
+                        Sign up
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="login-area column center">
+            <div class="login-logo-container d-flex column center">
+                <h1>Log in</h1>
+                <span class="login-underline"></span>
+            </div>
+            <div class="input-data-container d-flex column">
+                <div id="myInput" class="input-data d-flex column">
+                    <div id="email-input-container" class="login-input-area d-flex center">
+                        <input id="email" placeholder="Email" class="border-none font-size-20" type="email" required>
+                        <img src="./assets/icons/mail.png" alt="letter">
+                        <div id="email-error" class="error-message-email"></div>
+                    </div>
+                    <div id="pwd-input-container" class="login-input-area d-flex center">
+                        <input id="password" placeholder="password" class="border-none font-size-20" type="password"
+                            required>
+                        <img src="./assets/icons/lock.png" alt="keylock">
+                        <div id="password-error" class="error-message-password"></div>
+                    </div>
+                </div>
+                <div class="d-flex login-remember-me">
+                    <div>
+                        <input id="myCheckbox" type="checkbox">
+                    </div>
+                    <p>Remember me</p>
+                </div>
+            </div>
+            <div class="login-buttons d-flex column center">
+                <button onclick="login();  event.preventDefault();" id="loginButton"
+                    class="login-button login-button-top" type="submit">Log
+                    in</button>
+                <button type="button" onclick="goSummery()" id="guestLoginButton"
+                    class="login-button login-button-bottom">Guest
+                    Log in</a></button>
+            </div>
+        </div>
+        <div class="p-relative d-flex column center">
+            <div id="content-small" class="d-flex center font-size-20 content-small">
+                <p>Not a Join user?</p>
+                <a href="./sign-up.html">
+                    <button type="button" id="signupButton" class="signup-button login-button-top">
+                        Sign up
+                    </button>
+                </a>
+            </div>
+            <div class="footer-container d-flex">
+                <a id="privacyPolicyLink" class="center" href="./privacy-policy.html">Privacy Policy</a>
+                <a id="legalNoticeLink" class="center" href="./legal-notice.html">Legal notice</a>
+            </div>
+        </div>
+    </form>
+    <section id="join-sidebar"></section>
+
+</body>
+
+</html>

@@ -1,0 +1,385 @@
+.summary-main-content {
+    display: flex;
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--light-grey);
+    padding: 25px 16px 48px 16px;
+    text-wrap: wrap;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin-left: 130px;
+}
+
+.summary-headline-container {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: start;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 223px;
+    height: 104px;
+    transition: all ease-in-out 125ms;
+
+    animation-name: summary-1;
+    animation-duration: 300ms;
+}
+
+.headline {
+    font-size: 47px;
+}
+
+.underline {
+    width: 90px;
+    border: solid 2px var(--light-blue);
+}
+
+.summary-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 396px;
+    width: 100%;
+    max-height: 384px;
+    height: 100%;
+    margin-top: 130px;
+    gap: 8px;
+}
+
+.summerys-box1 {
+    display: flex;
+    justify-content: space-between;
+    max-width: 396px;
+    width: 100%;
+    max-height: 110px;
+    height: 100%;
+    gap: 8px;
+    transition: all ease-in-out 125ms;
+
+    animation-name: summary-2;
+    animation-duration: 300ms;
+}
+
+.summerys-box2 {
+    display: flex;
+    justify-content: space-between;
+    max-width: 396px;
+    width: 100%;
+    max-height: 110px;
+    height: 100%;
+    gap: 8px;
+    transition: all ease-in-out 125ms;
+
+    animation-name: summary-1;
+    animation-duration: 300ms;
+}
+
+.summary-todo-btn {
+    color: black;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    max-width: 186px;
+    width: 100%;
+    height: 110px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all ease-in-out 125ms;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.summary-todo-btn:hover {
+    scale: 1.1;
+    color: white;
+    background-color: var(--darke-blue);
+}
+
+.summary-todo-btn:hover circle {
+    fill: white;
+}
+
+.summary-todo-btn:hover path {
+    fill: #2a3647;
+}
+
+.summary-done-btn {
+    color: black;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    max-width: 186px;
+    width: 100%;
+    height: 110px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all ease-in-out 125ms;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.summary-done-btn:hover {
+    scale: 1.1;
+    color: white;
+    background-color: var(--darke-blue);
+}
+
+.summary-done-btn:hover circle {
+    fill: white;
+}
+
+.summary-done-btn:hover path {
+    stroke: #2a3647;
+}
+
+.summary-todo-btn:active {
+    scale: 0.9;
+    color: white;
+    background-color: var(--light-blue);
+}
+
+.summary-counter {
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.task-count {
+    font-size: 47px;
+    font-weight: 600;
+}
+
+.summary-urgent-btn {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 396px;
+    height: 110px;
+    gap: 20px;
+    border-radius: 20px;
+    transition: all ease-in-out 125ms;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.summary-urgent-btn:hover {
+    scale: 1.1;
+    color: white;
+    background-color: var(--darke-blue);
+}
+
+.summary-urgent-btn:active {
+    scale: 0.9;
+    color: white;
+    background-color: var(--light-blue);
+}
+
+.urgent-count-box {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.summary-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.breakline {
+    height: 68px;
+    border: solid 2px lightgray;
+}
+
+.deadline {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.urgent-date {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.summary-task-btn {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 116px;
+    height: 116px;
+    border-radius: 20px;
+    transition: all ease-in-out 125ms;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.summary-task-btn:hover {
+    scale: 1.1;
+    color: white;
+    background-color: var(--darke-blue);
+}
+
+.summary-task-btn:active {
+    scale: 0.9;
+    color: white;
+    background-color: var(--light-blue);
+}
+
+.summary-greeting-container {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 385px;
+    height: 136px;
+    margin-top: 130px;
+    margin-left: 80px;
+
+    animation-name: summary-3;
+    animation-duration: 300ms;
+}
+
+.greeting-time {
+    font-size: 47px;
+    font-weight: 500;
+    transition: all ease-in-out 125ms;
+}
+
+.greeting-name {
+    color: var(--light-blue);
+    font-size: 64px;
+    font-weight: 700;
+    transition: all ease-in-out 125ms;
+}
+
+.mobile-greeting-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    z-index: 3;
+
+    animation-name: fadeOut;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.summary-greeting-mobile-container {
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+
+    animation-name: greeting-mobile;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.greeting-time-mobile {
+    font-size: 36px;
+    font-weight: 500;
+    transition: all ease-in-out 125ms;
+}
+
+.greeting-name-mobile {
+    color: var(--light-blue);
+    font-size: 50px;
+    font-weight: 700;
+    transition: all ease-in-out 125ms;
+}
+
+@keyframes summary-1 {
+    from {
+        transform: translateX(100vw);
+    }
+
+    to {
+        transform: translateX();
+    }
+}
+
+@keyframes summary-2 {
+    from {
+        transform: translateX(-100vw);
+    }
+
+    to {
+        transform: translateX();
+    }
+}
+
+@keyframes summary-3 {
+    from {
+        scale: 0.1;
+    }
+
+    to {
+        scale: 1;
+    }
+}
+
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes greeting-mobile {
+    0% {
+        scale: 0.6;
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        scale: 1.1;
+        opacity: 1;
+    }
+}

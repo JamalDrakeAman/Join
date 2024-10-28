@@ -1,0 +1,124 @@
+@media (max-width: 640px) {
+    h1 {
+        font-size: 42px;
+    }
+
+    .sign-up-form {
+        height: 504px;
+        width: 296px;
+        padding: 16px 0;
+        gap: 24px;
+    }
+
+    .back-btn {
+        top: 32px;
+        left: 24px;
+    }
+
+    .sign-up-headline {
+        gap: 8px;
+    }
+
+    .logo-login {
+        height: 60px;
+        width: 48px;
+        top: 16px;
+        left: 20px;
+    }
+
+    .sign-up-form-inputs {
+        width: 276px;
+        height: 42px;
+    }
+
+    .sign-up-form-inputs input {
+        font-size: 18px;
+    }
+
+    .gap-signup-logo-content {
+        gap: 12px;
+        padding-top: 64px;
+    }
+
+    .footer-container {
+        padding-top: 32px;
+    }
+
+    .error-message-checkbox {
+        left: -3px;
+        right: -99px;
+    }
+
+    .error-message-name {
+        left: 26%;
+    }
+
+    .error-message-email {
+        left: 26%;
+    }
+
+    .error-message-password {
+        left: 23%;
+    }
+
+    .error-message-conf-password {
+        left: 2%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .logo-login {
+        top: 59px;
+        left: 57px;
+        width: 82px;
+        height: 100px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .logo-login {
+        width: 100px;
+        height: 122px;
+        top: 80px;
+        left: 77px;
+    }
+
+    .sign-up-form {
+        width: 598px;
+        height: 630px;
+    }
+
+    .sign-up-form-inputs {
+        width: 422px;
+        height: 48px;
+    }
+
+    .sign-up-btn {
+        width: 126px;
+        height: 55px;
+    }
+
+    .gap-signup-logo-content {
+        gap: 60px;
+    }
+
+    .error-message-checkbox {
+        left: -4px;
+    }
+
+    .error-message-name {
+        left: 35%;
+    }
+
+    .error-message-email {
+        left: 35%;
+    }
+
+    .error-message-password {
+        left: 32.5%;
+    }
+
+    .error-message-conf-password {
+        left: 19%;
+    }
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1" />
+        <link rel="icon" type="image/x-icon" href="./assets/icons/join-logo-light.png" />
+        <title>Join - Sign up</title>
+
+        <script src="./assets/templates/template.js"></script>
+        <script src="./scripts/fetch.js"></script>
+        <script src="./scripts/sign-up.js"></script>
+        <script defer src="./script.js"></script>
+
+        <link rel="stylesheet" href="./style.css" />
+        <link rel="stylesheet" href="./styles/sign-up.css" />
+        <link rel="stylesheet" href="./styles/responsive/signup-responsive.css" />
+    </head>
+
+    <body>
+        <section id="join-header" class="join-header d-none"></section>
+        <form class="d-flex content column gap-signup-logo-content">
+            <!-- <div class="logo-signup-container"> -->
+            <img class="logo-login" src="./assets/icons/logo-dark.svg" alt="" />
+            <!-- </div> -->
+            <div class="sign-up-form">
+                <a href="./index.html"><img id="backBtn" class="back-btn" src="./assets/icons/left-arrow.png" alt="Go to Log in" /></a>
+                <div class="sign-up-container d-flex center column">
+                    <div class="sign-up-headline">
+                        <h1 class="#">Sign up</h1>
+                        <div class="blue-underline"></div>
+                    </div>
+                    <div id="formInputsContainer" class="form-inputs-container d-flex column">
+                        <div id="name-input-container" class="sign-up-form-inputs">
+                            <input id="name-input" type="text" placeholder="Name" />
+                            <img src="./assets/icons/person.png" />
+                            <div id="name-error" class="error-message-name"></div>
+                        </div>
+                        <div id="email-input-container" class="sign-up-form-inputs">
+                            <input id="email-input" type="email" placeholder="Email" />
+                            <img src="./assets/icons/mail.png" />
+                            <div id="email-error" class="error-message-email"></div>
+                        </div>
+                        <div id="pwd-input-container" class="sign-up-form-inputs">
+                            <input autocomplete="new-password" id="user-pwd" type="password" placeholder="Password" />
+                            <img src="./assets/icons/lock.png" />
+                            <div id="password-error" class="error-message-password"></div>
+                        </div>
+                        <div id="conf-pwd-input-container" class="sign-up-form-inputs">
+                            <input id="user-conf-pwd" type="password" placeholder="Confirm Password" />
+                            <img src="./assets/icons/lock.png" />
+                            <div id="conf-pwd-error" class="error-message-conf-password"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="checkbox-container" class="checkbox-privacy-policy">
+                    <input id="myCheckbox" type="checkbox" />
+                    <label class="font-size-16" for="myCheckbox">I accept the <a class="link" id="linkPricacyPolicyCheckbox" href="./privacy-policy.html">Privacy policy</a></label>
+                    <div id="checkbox-error" class="error-message-checkbox"></div>
+                </div>
+                <div id="signupButton">
+                    <button onclick="signUp(); return false;" class="sign-up-btn">Sign up</button>
+                </div>
+            </div>
+            <div class="footer-container d-flex">
+                <a id="privacyPolicyLink" class="center" href="./privacy-policy.html">Privacy Policy</a>
+                <a id="legalNoticeLink" class="center" href="./legal-notice.html">Legal notice</a>
+            </div>
+        </form>
+        <section id="join-sidebar" class="d-none"></section>
+
+        <div id="dialog-allready-exists" class="dialog center">User is allready exists!</div>
+        <div id="dialog-signup-succes" class="dialog center">You Signed Up successfully</div>
+    </body>
+</html>

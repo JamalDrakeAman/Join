@@ -1,0 +1,230 @@
+@media (max-width: 427px) {
+    h1 {
+        font-size: 42px;
+    }
+
+    .logo-login-container img {
+        height: 60px;
+        width: 48px;
+        top: 16px;
+        left: 20px;
+    }
+
+    .input-data-container {
+        gap: 24px;
+    }
+
+    .gap-login-logo-content {
+        padding-top: 64px;
+        gap: 20px;
+    }
+
+    .login-area {
+        height: 428px;
+        width: 296px;
+        gap: 24px;
+        padding: 20px 0;
+    }
+
+    .login-input-area {
+        width: 276px;
+        height: 42px;
+        padding: 13px 21px;
+    }
+
+    .login-logo-container {
+        gap: 8px;
+    }
+
+    .login-input-area input {
+        width: 0px;
+    }
+
+    .font-size-20 {
+        font-size: 18px;
+    }
+
+    .login-button {
+        width: 160px;
+        height: 48px;
+    }
+
+    .login-buttons {
+        gap: 16px;
+    }
+
+    @keyframes moveAndScale {
+        0% {
+            transform: translate(-50%, -50%) scale(1);
+            top: 50%;
+            left: 50%;
+        }
+
+        100% {
+            transform: translate(0, 0) scale(0.3);
+            top: -51px;
+            left: -31px;
+        }
+    }
+
+    @keyframes fadeOutOverlay {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    .svg-img {
+        width: 148px;
+        height: 190px;
+    }
+
+    .error-message-email {
+        left: 24%;
+    }
+
+    .error-message-password {
+        left: 20%;
+    }
+}
+
+@media (max-width:1024px) {
+
+    #svg-image-large-content,
+    #content-large {
+        display: none;
+    }
+}
+
+
+@media (min-width: 1024px) {
+
+    #svg-image-small-content,
+    #content-small {
+        display: none;
+    }
+
+    h1 {
+        font-size: 61px;
+        font-weight: 700;
+    }
+
+    p {
+        font-weight: 400;
+    }
+
+    .login-underline {
+        width: 150px;
+    }
+
+    .signup-container-top {
+        gap: 35px;
+        position: absolute;
+        top: 67px;
+        right: 106px;
+    }
+
+    .gap-login-logo-content {
+        gap: 148px;
+    }
+
+    .logo-login-container {
+        height: 100px;
+        width: 100%;
+        justify-content: space-between;
+        padding: 0px 112px 0 64px;
+    }
+
+    .logo-login-container img {
+        position: absolute;
+        top: 80px;
+        left: 77px;
+    }
+
+    .logo-large-content {
+        width: 100px;
+        height: 122px;
+    }
+
+    .login-area {
+        width: 652px;
+        height: 493px;
+        gap: 32px;
+    }
+
+    .login-input-area {
+        width: 422px;
+        height: 48px;
+    }
+
+    .input-data-container {
+        gap: 32px;
+    }
+
+    .login-buttons {
+        flex-direction: row;
+        width: 100%;
+        gap: 35px;
+    }
+
+    .login-button-top {
+        width: 110px;
+        height: 48px;
+    }
+
+    .login-remember-me {
+        padding: 0px 16px 0px 40px;
+    }
+
+    .empty-container {
+        height: 100px;
+        width: 50px;
+    }
+
+    .overlay {
+        background-color: var(--light-grey);
+    }
+
+    @keyframes moveAndScale {
+        0% {
+            transform: translate(-50%, -50%) scale(1);
+            top: 50%;
+            left: 50%;
+        }
+
+        100% {
+            transform: translate(0, 0) scale(0.36);
+            top: -28px;
+            left: -10px;
+        }
+    }
+
+    @keyframes fadeOutOverlay {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    .svg-img {
+        width: 274px;
+        height: 334px;
+    }
+
+    .error-message-email {
+        left: 34%;
+    }
+
+    .error-message-password {
+        left: 31%;
+        top: 118%;
+    }
+}
