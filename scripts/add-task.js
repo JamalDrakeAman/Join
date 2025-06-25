@@ -477,3 +477,6 @@ function currentDate() {
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#date').min = currentDate();
 });
+
+
+

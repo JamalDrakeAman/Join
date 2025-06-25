@@ -521,3 +521,19 @@ select option[value=""] {
     align-items: center;
     gap: 20px;
 }
+
+
+
+.dateiupload-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 90px;
+    border: solid 1px;
+}
+
+.upload-icon{
+    height: 80px;
+    cursor: pointer;
+    object-fit: cover;
+}

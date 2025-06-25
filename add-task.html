@@ -11,10 +11,12 @@
     <script defer src="./scripts/add-task.js"></script>
     <script src="./scripts/subtask.js"></script>
     <script src="./assets/templates/template.js"></script>
-    <script src="./script.js" defer></script>
+    <script defer src="./script.js"></script>
     <script src="./scripts/data.js"></script>
     <script src="./scripts/validation.js"></script>
     <script src="./scripts/fetch.js"></script>
+    <script defer src="./scripts/data-upload.js"></script>
+
 
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./styles/add-task.css" />
@@ -59,12 +61,23 @@
                     </div>
 
                     <div id="selected-contacts-container" class="d-flex selectet-contacts-container"></div>
+
+                    <div class="dateiupload-container">
+                        <img class="upload-icon" src="assets/icons/upload.png" onclick="filepicker.click()"
+                            alt="Upload Icon">
+                        <input id="filepicker" style="display: none;" type="file">
+
+                        <div id="gallery">
+
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="task-settings">
                     <div class="input-container">
                         <label for="date">Due date<span class="required">*</span></label>
-                        <input id="date" class="input"  type="date" />
+                        <input id="date" class="input" type="date" />
                         <span class="form-error" id="date-error"></span>
                     </div>
 
@@ -121,7 +134,7 @@
         </div>
     </main>
 
-    <div class="d-flex submit-row">
+    <!-- <div class="d-flex submit-row">
         <div class="add-task-mobile-action-btn">
             <button type="button" class="btn clear" onclick="clearAddTask()">Clear <img
                     src="./assets/icons/clear-icon-dark.png" alt="" /></button>
@@ -130,7 +143,7 @@
                     src="./assets/icons/check.png" /></button>
 
         </div>
-    </div>
+    </div> -->
 
 
     <section id="join-sidebar"></section>
