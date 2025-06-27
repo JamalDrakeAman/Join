@@ -88,6 +88,13 @@ function generateTaskHTML(task, index, className) {
               <div class="d-flex task-footer">
                   <div id="${task.category}contatcs-container${index}" class="d-flex contatcs-container"></div>
                   <div id="${task.category}contatcs-container${index}num" class="d-flex contatcs-container"></div>
+
+                  <div class="file-view">
+                     <img class="file-icon" src="assets/icons/file-icon.png" alt="">
+                     <span class="file-number">${checkFileLength(task)}</span>
+                  </div>
+                 
+
                   <img id="${task.category}prio-icon${index}" class="prio-icon d-none" src="" alt="">
               </div> 
            </div>
@@ -280,14 +287,34 @@ function taskBoardOverlay(currentTask) {
                       <td id="prio"></td>
                   </tr>
               </table>
+
+
+              <div class="task-overlay-files" >
+                Files:
+                <div class="overlay-gallery" id="overlay-gallery"></div>
+              </div>
+
+
               <div class="task-overlay-assigned">
                   Assigned To:
                   <ul class="task-overlay-assigned-to-list" id="assigned-to-list"></ul>
               </div>
+
+
+
+             
+
+
               <div class="task-overlay-subtasks-container">
                   Subtasks
                   <div class="subtask-overlay" id="subtask-overlay"></div>
               </div>
+
+               
+
+
+      
+
             </div>
 
             <div class="task-overlay-edit-btns">

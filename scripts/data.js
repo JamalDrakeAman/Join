@@ -19,6 +19,7 @@ async function postTask() {
             prio: prio,
             categoryText: document.getElementById("selected-category").value,
             subtask: currentSubtasks,
+            files: [...allImages]
         })
     );
 }
@@ -45,6 +46,7 @@ async function getTasks() {
                 categoryText: task.categoryText,
                 subtask: task.subtask,
                 taskKey: taskKeys[index],
+                files: task.files
             });
         }
     }

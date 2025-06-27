@@ -67,7 +67,22 @@ function renderTasks(tasks, getById, noTask) {
             let className = task.categoryText.replace(" ", "-").toLowerCase();
             getById.innerHTML += generateTaskHTML(task, index, className);
             renderNoRequiredDetails(task, index);
+
+            // if (task.files) {
+            //     console.log(task.files.length);
+            // }
+
+
         }
+    }
+}
+
+
+function checkFileLength(task) {
+    if (task.files == undefined) {
+        return 0;
+    } else {
+        return task.files.length
     }
 }
 
@@ -201,6 +216,7 @@ function openTask(id) {
     document.getElementById("overlaver").innerHTML = taskBoardOverlay(currentTask);
     taskPrioText();
     renderTasksArrays();
+    renderTasksFiles();
 }
 
 /**
@@ -216,6 +232,18 @@ function renderTasksArrays() {
     }
     setCheck();
 }
+
+
+function renderTasksFiles() {
+    let filesGalleryRef = document.getElementById('overlay-gallery');
+    filesGalleryRef.innerHTML = "";
+    if (currentTask.files) {
+        currentTask.files.forEach((file) => {
+            filesGalleryRef.innerHTML += `<img class="" src="${file.base64}" ></img>`
+        });
+    }
+}
+
 
 /**
  * Renders the checklist for subtasks within the task overlay.
