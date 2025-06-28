@@ -21,11 +21,26 @@ filepicker.addEventListener('change', async () => {
             const base64 = await blobToBase64(blob);
 
 
-            const img = document.createElement('img');
-            img.src = base64;
-            gallery.appendChild(img);
+            // const img = document.createElement('img');
+            // img.src = base64;
+            // gallery.appendChild(img);
+
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = base64;
+                gallery.appendChild(img);
+            } else if (file.type === 'application/pdf') {
+                const link = document.createElement('a');
+                link.href = base64;
+                link.target = "_blank";
+                link.textContent = '📄 PDF anzeigen';
+                gallery.appendChild(link);
+            }
+
+
+
             allImages.push({
-                filename: '',
+                filename: file.name,
                 fileType: blob.type,
                 base64: base64,
                 size: blob.size
@@ -37,7 +52,7 @@ filepicker.addEventListener('change', async () => {
 });
 
 
-function render(){
+function render() {
     gallery.innerHTML = '';
     allImages.forEach(image => {
         gallery.innerHTML += `<img src="${image.base64}">`;
