@@ -14,7 +14,7 @@ filepicker.addEventListener('change', async () => {
         Array.from(files).forEach(async file => {
 
 
-            if (!(file.type.startsWith('image/'))) {
+            if (!file.type.startsWith('image/')) {
                 console.log('Falscher Typ');
                 error.textContent = `Die Datei "${file.name}" ist kein gültiges Bild.`;
                 return;
@@ -48,7 +48,7 @@ filepicker.addEventListener('change', async () => {
                 base64: compressedBase64,
                 size: blob.size
             });
-            // save();
+            save();
         });
     }
 
@@ -114,22 +114,24 @@ function render() {
     allImages.forEach(image => {
         gallery.innerHTML += `<img src="${image.base64}">`;
     })
+
+    const myGallery = new Viewer(document.getElementById('gallery'));
 }
 
 
-// function save() {
-//     let arrayAsString = JSON.stringify(allImages);
-//     localStorage.setItem('allImages', arrayAsString);
-// }
+function save() {
+    let arrayAsString = JSON.stringify(allImages);
+    localStorage.setItem('allImages', arrayAsString);
+}
 
-// function load() {
-//     let arrayAsString = localStorage.getItem('allImages');
-//     if (arrayAsString) {
-//         allImages = JSON.parse(arrayAsString);
-//         render();
-//     }
+function load() {
+    let arrayAsString = localStorage.getItem('allImages');
+    if (arrayAsString) {
+        allImages = JSON.parse(arrayAsString);
+        render();
+    }
 
-// }
+}
 
 
 

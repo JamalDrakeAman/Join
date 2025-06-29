@@ -17,6 +17,9 @@
     <script src="./scripts/fetch.js"></script>
     <script defer src="./scripts/data-upload.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.css">
+
 
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./styles/add-task.css" />
@@ -26,7 +29,7 @@
     <link rel="stylesheet" href="./styles/responsive/responsive.css" />
 </head>
 
-<body class="column" onload="addTaskInit(); styleSelecet(); markedPage('add-task-link', 'activePage')"
+<body class="column" onload="addTaskInit(); styleSelecet(); markedPage('add-task-link', 'activePage'); load()"
     onclick="classChangeAction('user-menu', 'd-none', 'add'); classChangeAction('menu', 'menu-active', 'remove'); closeDropdown(); stopEventBubbling(event);">
     <section id="join-header" class="join-header"></section>
 

@@ -595,6 +595,11 @@
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+#overlay-gallery img:hover {
+    filter: brightness(1.2);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
 .error {
     color: red;
     margin-top: 10px;
