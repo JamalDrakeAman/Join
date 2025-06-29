@@ -39,6 +39,7 @@ filepicker.addEventListener('change', async () => {
             const img = document.createElement('img');
             img.src = compressedBase64;
             gallery.appendChild(img);
+            const viewer = new Viewer(img);
 
 
 
