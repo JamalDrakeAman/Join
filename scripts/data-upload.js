@@ -143,3 +143,79 @@ function blobToBase64(blob) {
         reader.readAsDataURL(blob);
     });
 }
+
+
+
+
+
+
+
+
+
+
+const dropzone = document.getElementById('dropzone');
+
+// Klick auf Dropzone öffnet Filepicker
+dropzone.addEventListener('click', () => filepicker.click());
+
+// Visuelles Feedback beim Ziehen
+dropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropzone.classList.add('dragover');
+});
+
+dropzone.addEventListener('dragleave', () => {
+    dropzone.classList.remove('dragover');
+});
+
+dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('dragover');
+
+    const files = e.dataTransfer.files;
+
+    // Trick: statt filepicker.files (nicht beschreibbar) --> direkt weiterverarbeiten:
+    handleFiles(Array.from(files));
+});
+
+
+
+
+async function handleFiles(files) {
+    for (const file of files) {
+        if (!file.type.startsWith('image/')) {
+            console.log('Falscher Typ');
+            error.textContent = `Die Datei "${file.name}" ist kein gültiges Bild.`;
+            continue;
+        }
+
+        const blob = new Blob([file], { type: file.type });
+
+        if (blob.size > 1000000) {
+            error.textContent = `Die Datei "${file.name}" ist zu groß.`;
+            continue;
+        }
+
+        const compressedBase64 = await compressImage(file, 800, 800, 0.7);
+
+        const img = document.createElement('img');
+        img.src = compressedBase64;
+        gallery.appendChild(img);
+
+        const viewer = new Viewer(img);
+
+        allImages.push({
+            filename: file.name,
+            fileType: blob.type,
+            base64: compressedBase64,
+            size: blob.size
+        });
+
+        save();
+    }
+}
+
+
+filepicker.addEventListener('change', () => {
+    handleFiles(Array.from(filepicker.files));
+});

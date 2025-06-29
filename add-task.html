@@ -65,7 +65,7 @@
 
                     <div id="selected-contacts-container" class="d-flex selectet-contacts-container"></div>
 
-                    <div class="dateiupload-container">
+                    <!-- <div class="dateiupload-container">
                         <img class="upload-icon" src="assets/icons/upload.png" onclick="filepicker.click()"
                             alt="Upload Icon">
                         <input id="filepicker" accept="image/*" multiple style="display: none;" type="file">
@@ -75,6 +75,26 @@
                         <div id="gallery">
 
                         </div>
+                    </div> -->
+
+
+                    <div class="dateiupload-container">
+                        <label for="assign-to-dropdown">Attachments</label>
+                        <div class="allow-delete-box">
+                            <span class="allowed-info">Allowed file types are JPEG and PNG</span>
+                            <button>Delete all</button>
+                        </div>
+
+                        <div class="add-file-box" id="dropzone">
+                           <span>Drag a file or browse</span> <img src="assets/icons/add-icon.png" alt="">
+                            <input type="file" id="filepicker" style="display: none;" accept="image/*" multiple />
+                        </div>
+
+                        <div id="gallery">
+
+                        </div>
+
+
                     </div>
 
                 </div>
@@ -158,4 +178,3 @@
 </body>
 
 </html>
-
