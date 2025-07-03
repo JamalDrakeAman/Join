@@ -266,11 +266,38 @@ function setCheck() {
  */
 function showEditTaskValues() {
     document.getElementById("overlaver").innerHTML = editBoardTaskHTML(currentTask);
+    renderEditGallery(currentTask);
     editTaskAssignTo();
     editTaskSubtask();
     updateBtnColor(currentTask.prio);
     taskPrioText();
 }
+
+
+function renderEditGallery(task) {
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML = '';
+
+    if (!task.files) return;
+
+    task.files.forEach((image, index) => {
+        gallery.innerHTML += `
+            <div class="img-view-box">
+                <img class="img-view" src="${image.base64}" alt="${image.filename}">
+                <span class="file-name">${image.filename}</span>
+                <button class="delete-btn" onclick="deleteEditImage(${index})">🗑️</button>
+            </div>`;
+    });
+}
+
+
+function deleteEditImage(index) {
+    if (currentTask.files) {
+        currentTask.files.splice(index, 1); // Entferne das Bild aus dem Task
+        renderEditGallery(currentTask);     // Galerie neu rendern
+    }
+}
+
 
 /**
  * Edits the task's assigned contacts.

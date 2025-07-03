@@ -373,6 +373,26 @@ function editBoardTaskHTML(currentTask) {
                     <button id="low-btn" class="btn prio-btn" type="button" onclick="editPrio('low')">Low<img
                             id="prio-icon-low" src="./assets/icons/prio-low-icon.png"></button>
                 </div>
+
+
+                   <div class="dateiupload-container">
+                        <label for="assign-to-dropdown">Attachments</label>
+                        <div class="allow-delete-box">
+                            <span class="allowed-info">Allowed file types are JPEG and PNG</span>
+                            <div onclick="deleteImages()" class="delete-all-btn"><img src="assets/icons/delete.png" alt=""> Delete all</div>
+                        </div>
+
+                        <div class="add-file-box" id="dropzone">
+                            <span>Drag a file or browse</span> <img src="assets/icons/add-icon.png" alt="">
+                            <input type="file" id="filepicker" style="display: none;" accept="image/*" multiple />
+                        </div>
+
+                        <div id="gallery"></div>
+
+                    </div>
+
+
+
                 <div class="task-overlay-assigned position-relative">
                     Assigned To:
                     <div id="dropdown" class="drop-down d-flex">

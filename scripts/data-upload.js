@@ -4,56 +4,8 @@ const error = document.getElementById('error');
 
 let allImages = [];
 
-
-
-// filepicker.addEventListener('change', async () => {
-//     const files = filepicker.files
-
-//     if (files.length > 0) {
-//         //  console.log('Neue Datei(en)', files);
-//         Array.from(files).forEach(async file => {
-
-
-//             if (!file.type.startsWith('image/')) {
-//                 console.log('Falscher Typ');
-//                 error.textContent = `Die Datei "${file.name}" ist kein gültiges Bild.`;
-//                 return;
-//             }
-
-//             const blob = new Blob([file], { type: file.type })
-
-//             if (blob.size > 1000000) {
-//                 error.textContent = `Die Datei "${file.name}" ist zu Groß.`;
-//                 return;
-//             }
-
-//             console.log('Neue Datei(en)', blob);
-
-
-//             // const text = await blob.text();
-//             // console.log('Blob:', text);
-
-//             const compressedBase64 = await compressImage(file, 800, 800, 0.7);
-
-
-//             const img = document.createElement('img');
-//             img.src = compressedBase64;
-//             gallery.appendChild(img);
-//             const viewer = new Viewer(img);
-
-
-
-//             allImages.push({
-//                 filename: file.name,
-//                 fileType: blob.type,
-//                 base64: compressedBase64,
-//                 size: blob.size
-//             });
-//             save();
-//         });
-//     }
-
-// });
+// let isEditMode = false;
+// let currentTask = null;
 
 
 
@@ -156,8 +108,6 @@ function blobToBase64(blob) {
 }
 
 
-
-
 function deleteImages() {
     localStorage.removeItem('allImages');
     allImages = [];
@@ -172,11 +122,11 @@ function deleteImg(index) {
 }
 
 
-
 const dropzone = document.getElementById('dropzone');
 
 // Klick auf Dropzone öffnet Filepicker
 dropzone.addEventListener('click', () => filepicker.click());
+
 
 // Visuelles Feedback beim Ziehen
 dropzone.addEventListener('dragover', (e) => {
@@ -184,9 +134,11 @@ dropzone.addEventListener('dragover', (e) => {
     dropzone.classList.add('dragover');
 });
 
+
 dropzone.addEventListener('dragleave', () => {
     dropzone.classList.remove('dragover');
 });
+
 
 dropzone.addEventListener('drop', (e) => {
     e.preventDefault();
@@ -197,8 +149,6 @@ dropzone.addEventListener('drop', (e) => {
     // Trick: statt filepicker.files (nicht beschreibbar) --> direkt weiterverarbeiten:
     handleFiles(Array.from(files));
 });
-
-
 
 
 async function handleFiles(files) {
@@ -223,7 +173,6 @@ async function handleFiles(files) {
         gallery.appendChild(img);
 
         const viewer = new Viewer(img);
-
 
         allImages.push({
             filename: file.name,
