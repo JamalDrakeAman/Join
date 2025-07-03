@@ -112,11 +112,18 @@ function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.8) {
 
 function render() {
     gallery.innerHTML = '';
-    allImages.forEach(image => {
+    allImages.forEach((image, index) => {
+        // gallery.innerHTML += `
+        // <div class="img-view-box">
+        //   <img class="img-view" src="${image.base64}">
+        //   <span class="file-name">${image.filename}</span>
+        // </div>`;
+
         gallery.innerHTML += `
         <div class="img-view-box">
           <img class="img-view" src="${image.base64}">
           <span class="file-name">${image.filename}</span>
+          <div class="delete-btn" onclick="deleteImg(${index})">🗑️</div>
         </div>`;
     })
 
@@ -158,7 +165,11 @@ function deleteImages() {
 }
 
 
-
+function deleteImg(index) {
+    allImages.splice(index, 1); // Bild aus dem Array löschen
+    save();                     // Speicher aktualisieren
+    render();
+}
 
 
 

@@ -340,7 +340,7 @@ function editBoardTaskHTML(currentTask) {
     <div class="task-overlay-bg">
         <form onsubmit="editTask(); return false" class="task-overlay" onclick="closeDropdown(); stopEventBubbling(event)">
             <div class="task-overlay-category-container">
-                <span id="category-text" class="task-overlay-category"" style="background-color:powderblue;">${currentTask.categoryText}</span>
+                <span id="category-text" class="task-overlay-category" style="background-color:powderblue;">${currentTask.categoryText}</span>
                 <img class="task-overlay-close-icon" src="./assets/icons/close-icon-dark.png"
                     onclick="classChangeAction('overlaver','overlaver-active','remove')">
             </div>
