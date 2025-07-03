@@ -239,7 +239,7 @@ function renderTasksFiles() {
     filesGalleryRef.innerHTML = "";
     if (currentTask.files) {
         currentTask.files.forEach((file) => {
-            filesGalleryRef.innerHTML += `<img class="" src="${file.base64}" ></img>`
+            filesGalleryRef.innerHTML += `<img class="overlayImg" src="${file.base64}" ></img>`
         });
     }
     const myGallery = new Viewer(document.getElementById('overlay-gallery'));

@@ -539,7 +539,6 @@ select option[value=""] {
     gap: 5px;
     width: 100%;
     min-height: 200px;
-    border: solid 1px;
 }
 
 .allowed-info {
@@ -550,6 +549,21 @@ select option[value=""] {
 .allow-delete-box {
     display: flex;
     justify-content: space-between;
+}
+
+.delete-all-btn {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    transition: all ease-in-out 100ms;
+}
+
+.delete-all-btn:hover {
+    scale: 1.05;
+}
+
+.delete-all-btn:active {
+    scale: 0.95;
 }
 
 .add-file-box {
@@ -564,8 +578,8 @@ select option[value=""] {
     background-color: rgb(211, 211, 211);
 }
 
-.add-file-box:hover{
-     background-color: rgb(179, 171, 171);
+.add-file-box:hover {
+    background-color: rgb(179, 171, 171);
 }
 
 
@@ -583,13 +597,18 @@ select option[value=""] {
 
 #gallery {
     display: flex;
-    flex-wrap: wrap;
+    overflow-x: auto;
+    white-space: nowrap;
     gap: 8px;
+    padding: 10px;
+    max-width: 600px;
+    scroll-behavior: smooth;
 }
 
+
 #gallery img {
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
     object-fit: cover;
     background-color: rgba(0, 0, 0, 0.2);
@@ -598,4 +617,42 @@ select option[value=""] {
 #gallery img:hover {
     filter: brightness(1.2);
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.img-view-box {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    min-width: 150px;
+    height: 90px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: all ease-in-out 100ms;
+}
+
+.img-view-box:hover {
+    scale: 1.05;
+}
+
+.img-view {
+    width: 100%;
+    object-fit: cover;
+    background-color: lightblue;
+    filter: brightness(1.2);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.file-name {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+    color: rgb(114, 113, 113);
 }

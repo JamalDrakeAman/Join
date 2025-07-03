@@ -82,18 +82,15 @@
                         <label for="assign-to-dropdown">Attachments</label>
                         <div class="allow-delete-box">
                             <span class="allowed-info">Allowed file types are JPEG and PNG</span>
-                            <button>Delete all</button>
+                            <div onclick="deleteImages()" class="delete-all-btn"><img src="assets/icons/delete.png" alt=""> Delete all</div>
                         </div>
 
                         <div class="add-file-box" id="dropzone">
-                           <span>Drag a file or browse</span> <img src="assets/icons/add-icon.png" alt="">
+                            <span>Drag a file or browse</span> <img src="assets/icons/add-icon.png" alt="">
                             <input type="file" id="filepicker" style="display: none;" accept="image/*" multiple />
                         </div>
 
-                        <div id="gallery">
-
-                        </div>
-
+                        <div id="gallery"></div>
 
                     </div>
 

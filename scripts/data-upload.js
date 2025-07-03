@@ -6,54 +6,54 @@ let allImages = [];
 
 
 
-filepicker.addEventListener('change', async () => {
-    const files = filepicker.files
+// filepicker.addEventListener('change', async () => {
+//     const files = filepicker.files
 
-    if (files.length > 0) {
-        //  console.log('Neue Datei(en)', files);
-        Array.from(files).forEach(async file => {
-
-
-            if (!file.type.startsWith('image/')) {
-                console.log('Falscher Typ');
-                error.textContent = `Die Datei "${file.name}" ist kein gültiges Bild.`;
-                return;
-            }
-
-            const blob = new Blob([file], { type: file.type })
-
-            if (blob.size > 1000000) {
-                error.textContent = `Die Datei "${file.name}" ist zu Groß.`;
-                return;
-            }
-
-            console.log('Neue Datei(en)', blob);
+//     if (files.length > 0) {
+//         //  console.log('Neue Datei(en)', files);
+//         Array.from(files).forEach(async file => {
 
 
-            // const text = await blob.text();
-            // console.log('Blob:', text);
+//             if (!file.type.startsWith('image/')) {
+//                 console.log('Falscher Typ');
+//                 error.textContent = `Die Datei "${file.name}" ist kein gültiges Bild.`;
+//                 return;
+//             }
 
-            const compressedBase64 = await compressImage(file, 800, 800, 0.7);
+//             const blob = new Blob([file], { type: file.type })
+
+//             if (blob.size > 1000000) {
+//                 error.textContent = `Die Datei "${file.name}" ist zu Groß.`;
+//                 return;
+//             }
+
+//             console.log('Neue Datei(en)', blob);
 
 
-            const img = document.createElement('img');
-            img.src = compressedBase64;
-            gallery.appendChild(img);
-            const viewer = new Viewer(img);
+//             // const text = await blob.text();
+//             // console.log('Blob:', text);
+
+//             const compressedBase64 = await compressImage(file, 800, 800, 0.7);
+
+
+//             const img = document.createElement('img');
+//             img.src = compressedBase64;
+//             gallery.appendChild(img);
+//             const viewer = new Viewer(img);
 
 
 
-            allImages.push({
-                filename: file.name,
-                fileType: blob.type,
-                base64: compressedBase64,
-                size: blob.size
-            });
-            save();
-        });
-    }
+//             allImages.push({
+//                 filename: file.name,
+//                 fileType: blob.type,
+//                 base64: compressedBase64,
+//                 size: blob.size
+//             });
+//             save();
+//         });
+//     }
 
-});
+// });
 
 
 
@@ -113,7 +113,11 @@ function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.8) {
 function render() {
     gallery.innerHTML = '';
     allImages.forEach(image => {
-        gallery.innerHTML += `<img src="${image.base64}">`;
+        gallery.innerHTML += `
+        <div class="img-view-box">
+          <img class="img-view" src="${image.base64}">
+          <span class="file-name">${image.filename}</span>
+        </div>`;
     })
 
     const myGallery = new Viewer(document.getElementById('gallery'));
@@ -147,6 +151,11 @@ function blobToBase64(blob) {
 
 
 
+function deleteImages() {
+    localStorage.removeItem('allImages');
+    allImages = [];
+    render();
+}
 
 
 
@@ -204,6 +213,7 @@ async function handleFiles(files) {
 
         const viewer = new Viewer(img);
 
+
         allImages.push({
             filename: file.name,
             fileType: blob.type,
@@ -212,6 +222,7 @@ async function handleFiles(files) {
         });
 
         save();
+        render();
     }
 }
 
