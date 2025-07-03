@@ -97,6 +97,7 @@ async function editTask() {
             categoryText: currentTask.categoryText,
             title: document.getElementById("edit-title-input").value,
             description: document.getElementById("edit-textarea").value,
+            files: currentTask.files || [],
             date: document.getElementById("edit-date-input").value,
             prio: currentTask.prio,
             assignedTo: filterCheckedAssignedTo(),
