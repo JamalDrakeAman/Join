@@ -16,6 +16,7 @@
     <script src="./scripts/validation.js"></script>
     <script src="./scripts/fetch.js"></script>
     <script src="./assets/templates/template.js"></script>
+    <script defer src="./scripts/data-upload.js"></script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.min.js"></script>
@@ -164,6 +165,25 @@
                     </div>
 
                     <div id="selected-contacts-container" class="d-flex selectet-contacts-container"></div>
+
+
+                    <div class="dateiupload-container">
+                        <label for="assign-to-dropdown">Attachments</label>
+                        <div class="allow-delete-box">
+                            <span class="allowed-info">Allowed file types are JPEG and PNG</span>
+                            <div onclick="deleteImages()" class="delete-all-btn"><img src="assets/icons/delete.png"
+                                    alt=""> Delete all</div>
+                        </div>
+
+                        <div class="add-file-box" id="dropzone">
+                            <span>Drag a file or browse</span> <img src="assets/icons/add-icon.png" alt="">
+                            <input type="file" id="filepicker" style="display: none;" accept="image/*" multiple />
+                        </div>
+
+                        <div id="gallery"></div>
+
+                    </div>
+
                 </div>
 
                 <div class="task-settings">
