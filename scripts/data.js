@@ -107,6 +107,7 @@ async function editTask() {
     );
     await resetBoard();
     openTask(currentTask.id);
+    isEditMode = false;
 }
 
 /**

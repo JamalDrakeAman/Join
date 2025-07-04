@@ -4,10 +4,7 @@ const error = document.getElementById('error');
 
 let allImages = [];
 
-// let isEditMode = false;
-// let currentTask = null;
-
-
+let isEditMode = false;
 
 /**
 * Komprimiert ein Bild auf eine Zielgröße oder -qualität
@@ -150,6 +147,13 @@ dropzone.addEventListener('drop', (e) => {
     handleFiles(Array.from(files));
 });
 
+// const imageObj = {
+//     filename: file.name,
+//     fileType: blob.type,
+//     base64: compressedBase64,
+//     size: blob.size
+// };
+
 
 async function handleFiles(files) {
     for (const file of files) {
@@ -174,15 +178,31 @@ async function handleFiles(files) {
 
         const viewer = new Viewer(img);
 
-        allImages.push({
-            filename: file.name,
-            fileType: blob.type,
-            base64: compressedBase64,
-            size: blob.size
-        });
+        // allImages.push({
+        //     filename: file.name,
+        //     fileType: blob.type,
+        //     base64: compressedBase64,
+        //     size: blob.size
+        // });
 
-        save();
-        render();
+        // save();
+        // render();
+
+
+        if (isEditMode) {
+            if (!currentTask.files) currentTask.files = [];
+            currentTask.files.push(imageObj);
+            renderEditGallery(currentTask); // eigene Funktion, um Bilder im Edit-Modus zu zeigen
+        } else {
+            allImages.push({
+                filename: file.name,
+                fileType: blob.type,
+                base64: compressedBase64,
+                size: blob.size
+            });
+            render(); // Standard-Galerie
+            save();
+        }
     }
 }
 

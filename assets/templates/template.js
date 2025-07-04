@@ -301,20 +301,12 @@ function taskBoardOverlay(currentTask) {
               </div>
 
 
-
-             
-
-
               <div class="task-overlay-subtasks-container">
                   Subtasks
                   <div class="subtask-overlay" id="subtask-overlay"></div>
               </div>
 
                
-
-
-      
-
             </div>
 
             <div class="task-overlay-edit-btns">
@@ -342,7 +334,7 @@ function editBoardTaskHTML(currentTask) {
             <div class="task-overlay-category-container">
                 <span id="category-text" class="task-overlay-category" style="background-color:powderblue;">${currentTask.categoryText}</span>
                 <img class="task-overlay-close-icon" src="./assets/icons/close-icon-dark.png"
-                    onclick="classChangeAction('overlaver','overlaver-active','remove')">
+                    onclick="classChangeAction('overlaver','overlaver-active','remove'); isEditMode = false;">
             </div>
               <div>
                   <label for="title">Title</label>
@@ -379,7 +371,7 @@ function editBoardTaskHTML(currentTask) {
                         <label for="assign-to-dropdown">Attachments</label>
                         <div class="allow-delete-box">
                             <span class="allowed-info">Allowed file types are JPEG and PNG</span>
-                            <div onclick="deleteImages()" class="delete-all-btn"><img src="assets/icons/delete.png" alt=""> Delete all</div>
+                            <!-- <div onclick="deleteImages()" class="delete-all-btn"><img src="assets/icons/delete.png" alt=""> Delete all</div> -->
                         </div>
 
                         <div class="add-file-box" id="dropzone">

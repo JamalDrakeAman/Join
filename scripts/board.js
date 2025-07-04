@@ -265,6 +265,7 @@ function setCheck() {
  * Displays the editable values for the selected task.
  */
 function showEditTaskValues() {
+    isEditMode = true;
     document.getElementById("overlaver").innerHTML = editBoardTaskHTML(currentTask);
     renderEditGallery(currentTask);
     editTaskAssignTo();
