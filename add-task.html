@@ -66,17 +66,6 @@
 
                     <div id="selected-contacts-container" class="d-flex selectet-contacts-container"></div>
 
-                    <!-- <div class="dateiupload-container">
-                        <img class="upload-icon" src="assets/icons/upload.png" onclick="filepicker.click()"
-                            alt="Upload Icon">
-                        <input id="filepicker" accept="image/*" multiple style="display: none;" type="file">
-
-                        <div id="error" class="error"></div>
-
-                        <div id="gallery">
-
-                        </div>
-                    </div> -->
 
 
                     <div class="dateiupload-container">
@@ -86,14 +75,16 @@
                             <div onclick="deleteImages()" class="delete-all-btn"><img src="assets/icons/delete.png" alt=""> Delete all</div>
                         </div>
 
+                        <div id="error"></div>
+
                         <div class="add-file-box" id="dropzone">
                             <span>Drag a file or browse</span> <img src="assets/icons/add-icon.png" alt="">
-                            <input type="file" id="filepicker" style="display: none;" accept="image/*" multiple />
+                            <input type="file" id="filepicker" style="display: none;" accept="image/jpeg,image/png" multiple />
                         </div>
 
                         <div id="gallery"></div>
-
                     </div>
+
 
                 </div>
 
@@ -156,17 +147,6 @@
             </form>
         </div>
     </main>
-
-    <!-- <div class="d-flex submit-row">
-        <div class="add-task-mobile-action-btn">
-            <button type="button" class="btn clear" onclick="clearAddTask()">Clear <img
-                    src="./assets/icons/clear-icon-dark.png" alt="" /></button>
-
-            <button class="btn submit" type="submit" form="add-task">Create Task <img
-                    src="./assets/icons/check.png" /></button>
-
-        </div>
-    </div> -->
 
 
     <section id="join-sidebar"></section>

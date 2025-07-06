@@ -1,101 +1,218 @@
 const filepicker = document.getElementById('filepicker');
 const gallery = document.getElementById('gallery');
 const error = document.getElementById('error');
+const dropzone = document.getElementById('dropzone');
 
 let allImages = [];
-
 let isEditMode = false;
+let myGalleryViewer = null;
+
 
 /**
-* Komprimiert ein Bild auf eine Zielgröße oder -qualität
-* @param {File} file - Die Bilddatei, die komprimiert werden soll
-* @param {number} maxWidth - Die maximale Breite des Bildes
-* @param {number} maxHeight - Die maximale Höhe des Bildes
-* @param {number} quality - Qualität des komprimierten Bildes (zwischen 0 und 1)
-* @returns {Promise<string>} - Base64-String des komprimierten Bildes
-*/
+ * Compresses an image file to a target size and quality.
+ * @param {File} file - The image file to compress.
+ * @param {number} maxWidth - Maximum width of the image.
+ * @param {number} maxHeight - Maximum height of the image.
+ * @param {number} quality - JPEG quality (0–1).
+ * @returns {Promise<string>} - A base64-encoded compressed image.
+ */
 function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.8) {
+    return readFileAsDataURL(file)
+        .then(loadImage)
+        .then(img => resizeAndCompressImage(img, maxWidth, maxHeight, quality));
+}
+
+
+/**
+ * Reads a file and returns its base64-encoded string.
+ * @param {File} file - The file to read.
+ * @returns {Promise<string>} - Base64 string of the file.
+ */
+function readFileAsDataURL(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-
-        reader.onload = (event) => {
-            const img = new Image();
-            img.onload = () => {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-
-                // Berechnung der neuen Größe, um die Proportionen beizubehalten
-                let width = img.width;
-                let height = img.height;
-
-                if (width > maxWidth || height > maxHeight) {
-                    if (width > height) {
-                        height = (height * maxWidth) / width;
-                        width = maxWidth;
-                    } else {
-                        width = (width * maxHeight) / height;
-                        height = maxHeight;
-                    }
-                }
-
-                canvas.width = width;
-                canvas.height = height;
-
-                // Zeichne das Bild in das Canvas
-                ctx.drawImage(img, 0, 0, width, height);
-
-                // Exportiere das Bild als Base64
-                const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
-                resolve(compressedBase64);
-            };
-
-            img.onerror = () => reject('Fehler beim Laden des Bildes.');
-            img.src = event.target.result;
-        };
-
+        reader.onload = () => resolve(reader.result);
         reader.onerror = () => reject('Fehler beim Lesen der Datei.');
         reader.readAsDataURL(file);
     });
 }
 
 
-function render() {
-    gallery.innerHTML = '';
-    allImages.forEach((image, index) => {
-        // gallery.innerHTML += `
-        // <div class="img-view-box">
-        //   <img class="img-view" src="${image.base64}">
-        //   <span class="file-name">${image.filename}</span>
-        // </div>`;
-
-        gallery.innerHTML += `
-        <div class="img-view-box">
-          <img class="img-view" src="${image.base64}">
-          <span class="file-name">${image.filename}</span>
-          <div class="delete-btn" onclick="deleteImg(${index})">🗑️</div>
-        </div>`;
-    })
-
-    const myGallery = new Viewer(document.getElementById('gallery'));
+/**
+ * Loads an image from a base64 string.
+ * @param {string} base64 - Base64-encoded image source.
+ * @returns {Promise<HTMLImageElement>} - Loaded image element.
+ */
+function loadImage(base64) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject('Fehler beim Laden des Bildes.');
+        img.src = base64;
+    });
 }
 
 
+/**
+ * Resizes and compresses an image using canvas.
+ * @param {HTMLImageElement} img - The image to resize.
+ * @param {number} maxWidth - Max width.
+ * @param {number} maxHeight - Max height.
+ * @param {number} quality - JPEG quality (0–1).
+ * @returns {string} - Base64-encoded compressed image.
+ */
+function resizeAndCompressImage(img, maxWidth, maxHeight, quality) {
+    const { width, height } = getResizedDimensions(img, maxWidth, maxHeight);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, width, height);
+
+    return canvas.toDataURL('image/jpeg', quality);
+}
+
+
+/**
+ * Calculates resized dimensions while keeping aspect ratio.
+ * @param {HTMLImageElement} img - The original image.
+ * @param {number} maxWidth - Maximum width.
+ * @param {number} maxHeight - Maximum height.
+ * @returns {{width: number, height: number}} - New dimensions.
+ */
+function getResizedDimensions(img, maxWidth, maxHeight) {
+    let width = img.width;
+    let height = img.height;
+    if (width > maxWidth || height > maxHeight) {
+        if (width > height) {
+            height = (height * maxWidth) / width;
+            width = maxWidth;
+        } else {
+            width = (width * maxHeight) / height;
+            height = maxHeight;
+        }
+    }
+    return { width, height };
+}
+
+
+/**
+ * Renders the image gallery and initializes Viewer.
+ */
+function render() {
+    clearGallery();
+    const totalImages = allImages.length;
+    let loadCount = 0;
+    allImages.forEach((image, index) => {
+        const imgBox = createImageElement(image, index, () => {
+            loadCount++;
+            initViewerWhenAllLoaded(loadCount, totalImages);
+        });
+        gallery.appendChild(imgBox);
+    });
+    destroyViewerIfEmpty(totalImages);
+}
+
+
+/**
+ * Clears the gallery DOM container.
+ */
+function clearGallery() {
+    gallery.innerHTML = '';
+}
+
+
+/**
+ * Creates the DOM element for a single image box.
+ * @param {Object} image - The image object.
+ * @param {number} index - Index in image array.
+ * @param {Function} onLoadCallback - Called when image is loaded.
+ * @returns {HTMLDivElement} - Image container element.
+ */
+function createImageElement(image, index, onLoadCallback) {
+    const imgBox = document.createElement('div');
+    imgBox.classList.add('img-view-box');
+
+    const img = document.createElement('img');
+    img.classList.add('img-view');
+    img.src = image.base64;
+    img.onload = onLoadCallback;
+
+    const span = document.createElement('span');
+    span.classList.add('file-name');
+    span.textContent = image.filename;
+
+    const deleteBtn = document.createElement('div');
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.textContent = '🗑️';
+    deleteBtn.onclick = () => deleteImg(index);
+
+    imgBox.appendChild(img);
+    imgBox.appendChild(span);
+    imgBox.appendChild(deleteBtn);
+
+    return imgBox;
+}
+
+
+/**
+ * Initializes the image viewer after all images are loaded.
+ * @param {number} loaded - Number of loaded images.
+ * @param {number} total - Total number of images.
+ */
+function initViewerWhenAllLoaded(loaded, total) {
+    if (loaded === total) {
+        if (myGalleryViewer) {
+            myGalleryViewer.destroy();
+        }
+        myGalleryViewer = new Viewer(gallery, {
+            navbar: false,
+            toolbar: true,
+        });
+    }
+}
+
+
+/**
+ * Destroys the viewer instance if no images are left.
+ * @param {number} totalImages - Total number of images.
+ */
+function destroyViewerIfEmpty(totalImages) {
+    if (totalImages === 0 && myGalleryViewer) {
+        myGalleryViewer.destroy();
+        myGalleryViewer = null;
+    }
+}
+
+
+/**
+ * Saves the current image list to localStorage.
+ */
 function save() {
     let arrayAsString = JSON.stringify(allImages);
     localStorage.setItem('allImages', arrayAsString);
 }
 
+
+/**
+ * Loads the image list from localStorage and renders it.
+ */
 function load() {
     let arrayAsString = localStorage.getItem('allImages');
     if (arrayAsString) {
         allImages = JSON.parse(arrayAsString);
         render();
     }
-
 }
 
 
-
+/**
+ * Converts a Blob to a base64-encoded string.
+ * @param {Blob} blob - The blob to convert.
+ * @returns {Promise<string>} - Base64 string.
+ */
 function blobToBase64(blob) {
     return new Promise((resolve, _) => {
         const reader = new FileReader();
@@ -105,6 +222,9 @@ function blobToBase64(blob) {
 }
 
 
+/**
+ * Deletes all stored images and clears the gallery.
+ */
 function deleteImages() {
     localStorage.removeItem('allImages');
     allImages = [];
@@ -112,6 +232,10 @@ function deleteImages() {
 }
 
 
+/**
+ * Deletes a single image by index.
+ * @param {number} index - Index of the image to delete.
+ */
 function deleteImg(index) {
     allImages.splice(index, 1); // Bild aus dem Array löschen
     save();                     // Speicher aktualisieren
@@ -119,13 +243,9 @@ function deleteImg(index) {
 }
 
 
-const dropzone = document.getElementById('dropzone');
-
-// Klick auf Dropzone öffnet Filepicker
 dropzone.addEventListener('click', () => filepicker.click());
 
 
-// Visuelles Feedback beim Ziehen
 dropzone.addEventListener('dragover', (e) => {
     e.preventDefault();
     dropzone.classList.add('dragover');
@@ -140,70 +260,95 @@ dropzone.addEventListener('dragleave', () => {
 dropzone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropzone.classList.remove('dragover');
-
     const files = e.dataTransfer.files;
-
-    // Trick: statt filepicker.files (nicht beschreibbar) --> direkt weiterverarbeiten:
     handleFiles(Array.from(files));
 });
 
-// const imageObj = {
-//     filename: file.name,
-//     fileType: blob.type,
-//     base64: compressedBase64,
-//     size: blob.size
-// };
 
-
+/**
+ * Handles file drop or selection input.
+ * @param {File[]} files - Array of uploaded files.
+ */
 async function handleFiles(files) {
     for (const file of files) {
-        if (!file.type.startsWith('image/')) {
-            console.log('Falscher Typ');
-            error.textContent = `Die Datei "${file.name}" ist kein gültiges Bild.`;
+        if (!isFileTypeAllowed(file)) {
+            showError(`❌ Die Datei "${file.name}" ist kein erlaubtes Format. Nur JPEG und PNG sind erlaubt.`);
             continue;
         }
-
         const blob = new Blob([file], { type: file.type });
-
-        if (blob.size > 1000000) {
-            error.textContent = `Die Datei "${file.name}" ist zu groß.`;
+        if (!isFileSizeAllowed(blob)) {
+            showError(`❌ Die Datei "${file.name}" ist zu groß. Maximal 1 MB erlaubt.`);
             continue;
         }
-
         const compressedBase64 = await compressImage(file, 800, 800, 0.7);
-
-        const img = document.createElement('img');
-        img.src = compressedBase64;
-        gallery.appendChild(img);
-
-        const viewer = new Viewer(img);
-
-        // allImages.push({
-        //     filename: file.name,
-        //     fileType: blob.type,
-        //     base64: compressedBase64,
-        //     size: blob.size
-        // });
-
-        // save();
-        // render();
-
-
-        if (isEditMode) {
-            if (!currentTask.files) currentTask.files = [];
-            currentTask.files.push(imageObj);
-            renderEditGallery(currentTask); // eigene Funktion, um Bilder im Edit-Modus zu zeigen
-        } else {
-            allImages.push({
-                filename: file.name,
-                fileType: blob.type,
-                base64: compressedBase64,
-                size: blob.size
-            });
-            render(); // Standard-Galerie
-            save();
-        }
+        const imageObj = createImageObject(file, blob, compressedBase64);
+        addImage(imageObj);
     }
+}
+
+
+/**
+ * Validates the file type.
+ * @param {File} file - File to check.
+ * @returns {boolean} - True if type is allowed.
+ */
+function isFileTypeAllowed(file) {
+    const allowedTypes = ['image/jpeg', 'image/png'];
+    return allowedTypes.includes(file.type);
+}
+
+
+/**
+ * Validates the file size.
+ * @param {Blob} blob - File blob to check.
+ * @returns {boolean} - True if size is acceptable.
+ */
+function isFileSizeAllowed(blob) {
+    return blob.size <= 1_000_000;
+}
+
+
+/**
+ * Creates a structured image object.
+ * @param {File} file - Original file.
+ * @param {Blob} blob - File blob.
+ * @param {string} base64 - Base64 image.
+ * @returns {Object} - Image metadata object.
+ */
+function createImageObject(file, blob, base64) {
+    return {
+        filename: file.name,
+        fileType: blob.type,
+        base64: base64,
+        size: blob.size
+    };
+}
+
+
+/**
+ * Adds an image to the appropriate image list and renders.
+ * @param {Object} imageObj - Image metadata.
+ */
+function addImage(imageObj) {
+    if (isEditMode) {
+        if (!currentTask.files) currentTask.files = [];
+        currentTask.files.push(imageObj);
+        renderEditGallery(currentTask);
+    } else {
+        allImages.push(imageObj);
+        save();
+        render();
+    }
+}
+
+
+/**
+ * Displays an error message temporarily.
+ * @param {string} message - Message to display.
+ */
+function showError(message) {
+    error.textContent = message;
+    setTimeout(() => error.textContent = '', 4000);
 }
 
 
