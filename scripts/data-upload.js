@@ -243,20 +243,42 @@ function deleteImg(index) {
 }
 
 
+/**
+ * Handles click event on the dropzone.
+ * Triggers the hidden file input element to open the file picker dialog.
+ */
 dropzone.addEventListener('click', () => filepicker.click());
 
 
+/**
+ * Handles the dragover event on the dropzone.
+ * Prevents the default behavior to allow dropping,
+ * and visually indicates that the dropzone is active.
+ * 
+ * @param {DragEvent} e - The dragover event object.
+ */
 dropzone.addEventListener('dragover', (e) => {
     e.preventDefault();
     dropzone.classList.add('dragover');
 });
 
 
+/**
+ * Handles the dragleave event on the dropzone.
+ * Removes the visual highlight when the dragged item leaves the dropzone.
+ */
 dropzone.addEventListener('dragleave', () => {
     dropzone.classList.remove('dragover');
 });
 
 
+/**
+ * Handles the drop event on the dropzone.
+ * Prevents the default behavior, removes the visual highlight,
+ * retrieves the dropped files, and passes them to the file handler.
+ * 
+ * @param {DragEvent} e - The drop event object.
+ */
 dropzone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropzone.classList.remove('dragover');
@@ -352,6 +374,10 @@ function showError(message) {
 }
 
 
+/**
+ * Handles the change event on the hidden file input.
+ * Converts the selected FileList into an array and passes it to the file handler.
+ */
 filepicker.addEventListener('change', () => {
     handleFiles(Array.from(filepicker.files));
 });
