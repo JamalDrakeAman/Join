@@ -314,9 +314,17 @@ async function handleFiles(files) {
  * @param {File} file - File to check.
  * @returns {boolean} - True if type is allowed.
  */
+// function isFileTypeAllowed(file) {
+//     const allowedTypes = ['image/jpeg', 'image/png'];
+//     return allowedTypes.includes(file.type);
+// }
+
 function isFileTypeAllowed(file) {
     const allowedTypes = ['image/jpeg', 'image/png'];
-    return allowedTypes.includes(file.type);
+    const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+
+    const ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
+    return allowedTypes.includes(file.type) && allowedExtensions.includes(ext);
 }
 
 
@@ -326,7 +334,7 @@ function isFileTypeAllowed(file) {
  * @returns {boolean} - True if size is acceptable.
  */
 function isFileSizeAllowed(blob) {
-    return blob.size <= 1_000_000;
+    return blob.size <= 1000000;
 }
 
 
