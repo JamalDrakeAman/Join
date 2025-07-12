@@ -67,12 +67,6 @@ function renderTasks(tasks, getById, noTask) {
             let className = task.categoryText.replace(" ", "-").toLowerCase();
             getById.innerHTML += generateTaskHTML(task, index, className);
             renderNoRequiredDetails(task, index);
-
-            // if (task.files) {
-            //     console.log(task.files.length);
-            // }
-
-
         }
     }
 }
@@ -299,21 +293,6 @@ function showEditTaskValues() {
 }
 
 
-let addTaskUploader = document.getElementById('board-add-task-upload');
-
-// function editModeOn() {
-//     isEditMode = true;
-//     addTaskUploader.classList.add('d-none');
-// }
-
-
-// function editModeOff() {
-//     isEditMode = false;
-
-//     addTaskUploader.classList.remove('d-none');
-// }
-
-
 function renderEditGallery(task) {
     const gallery = document.getElementById('gallery');
     gallery.innerHTML = '';
@@ -333,8 +312,8 @@ function renderEditGallery(task) {
 
 function deleteEditImage(index) {
     if (currentTask.files) {
-        currentTask.files.splice(index, 1); // Entferne das Bild aus dem Task
-        renderEditGallery(currentTask);     // Galerie neu rendern
+        currentTask.files.splice(index, 1); 
+        renderEditGallery(currentTask);     
     }
 }
 
