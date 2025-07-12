@@ -12,13 +12,21 @@
     }
 
     .task-overlay-files {
-        width: 300px;
+        width: 300px !important;
+    }
+
+    .edit-gallery{
+        width: 300px !important;
     }
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 480px ) {
     .task-overlay-files {
+        width: 400px;
+    }
+
+    .edit-gallery{
         width: 400px;
     }
 }

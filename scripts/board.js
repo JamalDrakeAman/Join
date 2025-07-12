@@ -239,7 +239,7 @@ function renderTasksFiles() {
     filesGalleryRef.innerHTML = "";
     if (currentTask.files) {
         currentTask.files.forEach((file) => {
-            filesGalleryRef.innerHTML += `<img class="overlayImg" src="${file.base64}" ></img>`
+            filesGalleryRef.innerHTML += ` <img class="overlayImg" src="${file.base64}" alt="${file.filename}">`
         });
     }
     const myGallery = new Viewer(document.getElementById('overlay-gallery'), {
@@ -297,6 +297,21 @@ function showEditTaskValues() {
     updateBtnColor(currentTask.prio);
     taskPrioText();
 }
+
+
+let addTaskUploader = document.getElementById('board-add-task-upload');
+
+// function editModeOn() {
+//     isEditMode = true;
+//     addTaskUploader.classList.add('d-none');
+// }
+
+
+// function editModeOff() {
+//     isEditMode = false;
+
+//     addTaskUploader.classList.remove('d-none');
+// }
 
 
 function renderEditGallery(task) {

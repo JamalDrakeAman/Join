@@ -61,6 +61,20 @@ function loadImage(base64) {
  * @param {number} quality - JPEG quality (0–1).
  * @returns {string} - Base64-encoded compressed image.
  */
+// function resizeAndCompressImage(img, maxWidth, maxHeight, quality) {
+//     const { width, height } = getResizedDimensions(img, maxWidth, maxHeight);
+
+//     const canvas = document.createElement('canvas');
+//     canvas.width = width;
+//     canvas.height = height;
+
+//     const ctx = canvas.getContext('2d');
+//     ctx.drawImage(img, 0, 0, width, height);
+
+//     return canvas.toDataURL('image/jpeg', quality);
+// }
+
+
 function resizeAndCompressImage(img, maxWidth, maxHeight, quality) {
     const { width, height } = getResizedDimensions(img, maxWidth, maxHeight);
 
@@ -71,7 +85,13 @@ function resizeAndCompressImage(img, maxWidth, maxHeight, quality) {
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, width, height);
 
-    return canvas.toDataURL('image/jpeg', quality);
+    return new Promise((resolve) => {
+        canvas.toBlob(blob => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result); // base64
+            reader.readAsDataURL(blob);
+        }, 'image/jpeg', quality);
+    });
 }
 
 

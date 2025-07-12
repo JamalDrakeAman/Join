@@ -721,6 +721,10 @@
     border-radius: 8px;
 }
 
+.d-none {
+    display: none;
+}
+
 
 /* .overlayImg {
     width: 200px;
