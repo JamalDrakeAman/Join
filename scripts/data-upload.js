@@ -137,7 +137,11 @@ function createImageElement(image, index, onLoadCallback) {
 
     const img = document.createElement('img');
     img.classList.add('img-view');
+    // img.src = image.base64;
+    // img.onload = onLoadCallback;
+
     img.src = image.base64;
+    img.alt = image.filename; // für Viewer.js → Dateiname
     img.onload = onLoadCallback;
 
     const span = document.createElement('span');
@@ -162,6 +166,19 @@ function createImageElement(image, index, onLoadCallback) {
  * @param {number} loaded - Number of loaded images.
  * @param {number} total - Total number of images.
  */
+// function initViewerWhenAllLoaded(loaded, total) {
+//     if (loaded === total) {
+//         if (myGalleryViewer) {
+//             myGalleryViewer.destroy();
+//         }
+//         myGalleryViewer = new Viewer(gallery, {
+//             navbar: false,
+//             toolbar: true,
+//         });
+//     }
+// }
+
+
 function initViewerWhenAllLoaded(loaded, total) {
     if (loaded === total) {
         if (myGalleryViewer) {
@@ -169,7 +186,28 @@ function initViewerWhenAllLoaded(loaded, total) {
         }
         myGalleryViewer = new Viewer(gallery, {
             navbar: false,
-            toolbar: true,
+            title: function (image) {
+                return image.alt || 'Untitled';
+            },
+            toolbar: {
+                zoomIn: 1,
+                zoomOut: 1,
+                oneToOne: 1,
+                reset: 1,
+                prev: 1,
+                play: false,
+                next: 1,
+                rotateLeft: 1,
+                rotateRight: 1,
+                flipHorizontal: 1,
+                flipVertical: 1,
+                download: function (image) {
+                    const link = document.createElement('a');
+                    link.href = image.src;
+                    link.download = image.alt || 'download.jpg';
+                    link.click();
+                }
+            }
         });
     }
 }
