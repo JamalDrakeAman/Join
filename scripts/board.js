@@ -67,12 +67,6 @@ function renderTasks(tasks, getById, noTask) {
             let className = task.categoryText.replace(" ", "-").toLowerCase();
             getById.innerHTML += generateTaskHTML(task, index, className);
             renderNoRequiredDetails(task, index);
-
-            // if (task.files) {
-            //     console.log(task.files.length);
-            // }
-
-
         }
     }
 }
@@ -239,10 +233,34 @@ function renderTasksFiles() {
     filesGalleryRef.innerHTML = "";
     if (currentTask.files) {
         currentTask.files.forEach((file) => {
-            filesGalleryRef.innerHTML += `<img class="overlayImg" src="${file.base64}" ></img>`
+            filesGalleryRef.innerHTML += ` <img class="overlayImg" src="${file.base64}" alt="${file.filename}">`
         });
     }
-    const myGallery = new Viewer(document.getElementById('overlay-gallery'));
+    const myGallery = new Viewer(document.getElementById('overlay-gallery'), {
+        navbar: false,
+        title: function (image) {
+            return image.alt || 'Untitled';
+        },
+        toolbar: {
+            zoomIn: 1,
+            zoomOut: 1,
+            oneToOne: 1,
+            reset: 1,
+            prev: 1,
+            play: false,
+            next: 1,
+            rotateLeft: 1,
+            rotateRight: 1,
+            flipHorizontal: 1,
+            flipVertical: 1,
+            download: function (image) {
+                const link = document.createElement('a');
+                link.href = image.src;
+                link.download = image.alt || 'download.jpg';
+                link.click();
+            }
+        }
+    });
 }
 
 
@@ -294,8 +312,8 @@ function renderEditGallery(task) {
 
 function deleteEditImage(index) {
     if (currentTask.files) {
-        currentTask.files.splice(index, 1); // Entferne das Bild aus dem Task
-        renderEditGallery(currentTask);     // Galerie neu rendern
+        currentTask.files.splice(index, 1); 
+        renderEditGallery(currentTask);     
     }
 }
 

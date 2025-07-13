@@ -379,7 +379,7 @@ function editBoardTaskHTML(currentTask) {
                             <input type="file" id="filepicker" style="display: none;" accept="image/*" multiple />
                         </div>
 
-                        <div id="gallery"></div>
+                        <div class="edit-gallery" id="gallery"></div>
 
                     </div>
 

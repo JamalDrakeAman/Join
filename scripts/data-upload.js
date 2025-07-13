@@ -61,6 +61,20 @@ function loadImage(base64) {
  * @param {number} quality - JPEG quality (0–1).
  * @returns {string} - Base64-encoded compressed image.
  */
+// function resizeAndCompressImage(img, maxWidth, maxHeight, quality) {
+//     const { width, height } = getResizedDimensions(img, maxWidth, maxHeight);
+
+//     const canvas = document.createElement('canvas');
+//     canvas.width = width;
+//     canvas.height = height;
+
+//     const ctx = canvas.getContext('2d');
+//     ctx.drawImage(img, 0, 0, width, height);
+
+//     return canvas.toDataURL('image/jpeg', quality);
+// }
+
+
 function resizeAndCompressImage(img, maxWidth, maxHeight, quality) {
     const { width, height } = getResizedDimensions(img, maxWidth, maxHeight);
 
@@ -71,7 +85,13 @@ function resizeAndCompressImage(img, maxWidth, maxHeight, quality) {
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, width, height);
 
-    return canvas.toDataURL('image/jpeg', quality);
+    return new Promise((resolve) => {
+        canvas.toBlob(blob => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result); // base64
+            reader.readAsDataURL(blob);
+        }, 'image/jpeg', quality);
+    });
 }
 
 
@@ -137,7 +157,11 @@ function createImageElement(image, index, onLoadCallback) {
 
     const img = document.createElement('img');
     img.classList.add('img-view');
+    // img.src = image.base64;
+    // img.onload = onLoadCallback;
+
     img.src = image.base64;
+    img.alt = image.filename; // für Viewer.js → Dateiname
     img.onload = onLoadCallback;
 
     const span = document.createElement('span');
@@ -162,6 +186,19 @@ function createImageElement(image, index, onLoadCallback) {
  * @param {number} loaded - Number of loaded images.
  * @param {number} total - Total number of images.
  */
+// function initViewerWhenAllLoaded(loaded, total) {
+//     if (loaded === total) {
+//         if (myGalleryViewer) {
+//             myGalleryViewer.destroy();
+//         }
+//         myGalleryViewer = new Viewer(gallery, {
+//             navbar: false,
+//             toolbar: true,
+//         });
+//     }
+// }
+
+
 function initViewerWhenAllLoaded(loaded, total) {
     if (loaded === total) {
         if (myGalleryViewer) {
@@ -169,7 +206,28 @@ function initViewerWhenAllLoaded(loaded, total) {
         }
         myGalleryViewer = new Viewer(gallery, {
             navbar: false,
-            toolbar: true,
+            title: function (image) {
+                return image.alt || 'Untitled';
+            },
+            toolbar: {
+                zoomIn: 1,
+                zoomOut: 1,
+                oneToOne: 1,
+                reset: 1,
+                prev: 1,
+                play: false,
+                next: 1,
+                rotateLeft: 1,
+                rotateRight: 1,
+                flipHorizontal: 1,
+                flipVertical: 1,
+                download: function (image) {
+                    const link = document.createElement('a');
+                    link.href = image.src;
+                    link.download = image.alt || 'download.jpg';
+                    link.click();
+                }
+            }
         });
     }
 }
@@ -314,9 +372,17 @@ async function handleFiles(files) {
  * @param {File} file - File to check.
  * @returns {boolean} - True if type is allowed.
  */
+// function isFileTypeAllowed(file) {
+//     const allowedTypes = ['image/jpeg', 'image/png'];
+//     return allowedTypes.includes(file.type);
+// }
+
 function isFileTypeAllowed(file) {
     const allowedTypes = ['image/jpeg', 'image/png'];
-    return allowedTypes.includes(file.type);
+    const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+
+    const ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
+    return allowedTypes.includes(file.type) && allowedExtensions.includes(ext);
 }
 
 
@@ -326,7 +392,7 @@ function isFileTypeAllowed(file) {
  * @returns {boolean} - True if size is acceptable.
  */
 function isFileSizeAllowed(blob) {
-    return blob.size <= 1_000_000;
+    return blob.size <= 1000000;
 }
 
 

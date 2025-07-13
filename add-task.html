@@ -17,8 +17,11 @@
     <script src="./scripts/fetch.js"></script>
     <script defer src="./scripts/data-upload.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.css"> -->
+
+    <link href="https://unpkg.com/viewerjs/dist/viewer.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/viewerjs/dist/viewer.min.js"></script>
 
 
     <link rel="stylesheet" href="./style.css" />
@@ -71,15 +74,17 @@
                     <div class="dateiupload-container">
                         <label for="assign-to-dropdown">Attachments</label>
                         <div class="allow-delete-box">
-                            <span class="allowed-info">Allowed file types are JPEG and PNG</span>
-                            <div onclick="deleteImages()" class="delete-all-btn"><img src="assets/icons/delete.png" alt=""> Delete all</div>
+                            <span class="allowed-info">Allowed file types are JPG, JPEG and PNG</span>
+                            <div onclick="deleteImages()" class="delete-all-btn"><img src="assets/icons/delete.png"
+                                    alt=""> Delete all</div>
                         </div>
 
                         <div id="error"></div>
 
                         <div class="add-file-box" id="dropzone">
                             <span>Drag a file or browse</span> <img src="assets/icons/add-icon.png" alt="">
-                            <input type="file" id="filepicker" style="display: none;" accept="image/jpeg,image/png" multiple />
+                            <input type="file" id="filepicker" style="display: none;" accept="image/jpeg,image/png"
+                                multiple />
                         </div>
 
                         <div id="gallery"></div>

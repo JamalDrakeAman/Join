@@ -38,13 +38,13 @@
 
     .add-task-form {
         flex-direction: row;
-        gap: 60px;
+        gap: 30px;
         padding: 0 40px;
     }
 
     .task-details {
         width: 100%;
-        padding-right: 60px;
+        padding-right: 30px;
         border-right: 1px solid var(--medium-grey);
     }
 
