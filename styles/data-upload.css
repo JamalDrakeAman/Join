@@ -36,6 +36,13 @@
     transition: all ease-in-out 100ms;
 }
 
+.delete-all-btn img{
+   width: 20px;
+   height: 25px;
+}
+
+
+
 .delete-all-btn:hover {
     scale: 1.05;
 }

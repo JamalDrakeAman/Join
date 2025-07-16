@@ -74,7 +74,7 @@
                     <div class="dateiupload-container">
                         <label for="assign-to-dropdown">Attachments</label>
                         <div class="allow-delete-box">
-                            <span class="allowed-info">Allowed file types are JPG, JPEG and PNG</span>
+                            <span class="allowed-info">Allowed file types are <br> JPG, JPEG and PNG</span>
                             <div onclick="deleteImages()" class="delete-all-btn"><img src="assets/icons/delete.png"
                                     alt=""> Delete all</div>
                         </div>
@@ -152,6 +152,18 @@
             </form>
         </div>
     </main>
+
+
+    <div class="d-flex submit-row">
+        <div class="add-task-mobile-action-btn">
+            <button type="button" class="btn clear" onclick="clearAddTask()">Clear <img
+                    src="./assets/icons/clear-icon-dark.png" alt="" /></button>
+
+            <button class="btn submit" type="submit" form="add-task">Create Task <img
+                    src="./assets/icons/check.png" /></button>
+
+        </div>
+    </div>
 
 
     <section id="join-sidebar"></section>
