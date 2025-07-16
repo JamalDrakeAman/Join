@@ -424,6 +424,7 @@ function clearAddTask() {
     });
     updateBtnColor(prio);
     classChangeAction("add-task-overlay", "overlaver-active", "remove");
+    deleteImages()
 }
 
 /**
