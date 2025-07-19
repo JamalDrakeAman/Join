@@ -372,6 +372,7 @@
 }
 
 .task {
+    min-height: 230px;
     position: relative;
     width: 100%;
     padding: 16px;
@@ -724,4 +725,3 @@
 .d-none {
     display: none;
 }
-
