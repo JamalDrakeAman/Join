@@ -8,18 +8,11 @@ let isEditMode = false;
 let myGalleryViewer = null;
 
 
-/**
- * Compresses an image file to a target size and quality.
- * @param {File} file - The image file to compress.
- * @param {number} maxWidth - Maximum width of the image.
- * @param {number} maxHeight - Maximum height of the image.
- * @param {number} quality - JPEG quality (0–1).
- * @returns {Promise<string>} - A base64-encoded compressed image.
- */
+
 function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.8) {
     return readFileAsDataURL(file)
         .then(loadImage)
-        .then(img => resizeAndCompressImage(img, maxWidth, maxHeight, quality));
+        .then(img => resizeAndCompressImage(img, file.type, maxWidth, maxHeight, quality));
 }
 
 
@@ -53,29 +46,8 @@ function loadImage(base64) {
 }
 
 
-/**
- * Resizes and compresses an image using canvas.
- * @param {HTMLImageElement} img - The image to resize.
- * @param {number} maxWidth - Max width.
- * @param {number} maxHeight - Max height.
- * @param {number} quality - JPEG quality (0–1).
- * @returns {string} - Base64-encoded compressed image.
- */
-// function resizeAndCompressImage(img, maxWidth, maxHeight, quality) {
-//     const { width, height } = getResizedDimensions(img, maxWidth, maxHeight);
 
-//     const canvas = document.createElement('canvas');
-//     canvas.width = width;
-//     canvas.height = height;
-
-//     const ctx = canvas.getContext('2d');
-//     ctx.drawImage(img, 0, 0, width, height);
-
-//     return canvas.toDataURL('image/jpeg', quality);
-// }
-
-
-function resizeAndCompressImage(img, maxWidth, maxHeight, quality) {
+function resizeAndCompressImage(img, outputType = 'image/jpeg', maxWidth, maxHeight, quality) {
     const { width, height } = getResizedDimensions(img, maxWidth, maxHeight);
 
     const canvas = document.createElement('canvas');
@@ -88,9 +60,9 @@ function resizeAndCompressImage(img, maxWidth, maxHeight, quality) {
     return new Promise((resolve) => {
         canvas.toBlob(blob => {
             const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result); // base64
+            reader.onloadend = () => resolve(reader.result);
             reader.readAsDataURL(blob);
-        }, 'image/jpeg', quality);
+        }, outputType, quality);
     });
 }
 
@@ -179,24 +151,6 @@ function createImageElement(image, index, onLoadCallback) {
 
     return imgBox;
 }
-
-
-/**
- * Initializes the image viewer after all images are loaded.
- * @param {number} loaded - Number of loaded images.
- * @param {number} total - Total number of images.
- */
-// function initViewerWhenAllLoaded(loaded, total) {
-//     if (loaded === total) {
-//         if (myGalleryViewer) {
-//             myGalleryViewer.destroy();
-//         }
-//         myGalleryViewer = new Viewer(gallery, {
-//             navbar: false,
-//             toolbar: true,
-//         });
-//     }
-// }
 
 
 function initViewerWhenAllLoaded(loaded, total) {
@@ -357,7 +311,7 @@ async function handleFiles(files) {
         }
         const blob = new Blob([file], { type: file.type });
         if (!isFileSizeAllowed(blob)) {
-            showError(`❌ Die Datei "${file.name}" ist zu groß. Maximal 1 MB erlaubt.`);
+            showError(`❌ Die Datei "${file.name}" ist zu groß. Maximal 5 MB erlaubt.`);
             continue;
         }
         const compressedBase64 = await compressImage(file, 800, 800, 0.7);
@@ -367,15 +321,6 @@ async function handleFiles(files) {
 }
 
 
-/**
- * Validates the file type.
- * @param {File} file - File to check.
- * @returns {boolean} - True if type is allowed.
- */
-// function isFileTypeAllowed(file) {
-//     const allowedTypes = ['image/jpeg', 'image/png'];
-//     return allowedTypes.includes(file.type);
-// }
 
 function isFileTypeAllowed(file) {
     const allowedTypes = ['image/jpeg', 'image/png'];
@@ -392,25 +337,27 @@ function isFileTypeAllowed(file) {
  * @returns {boolean} - True if size is acceptable.
  */
 function isFileSizeAllowed(blob) {
-    return blob.size <= 1000000;
+    return blob.size <= 5000000;
 }
 
 
-/**
- * Creates a structured image object.
- * @param {File} file - Original file.
- * @param {Blob} blob - File blob.
- * @param {string} base64 - Base64 image.
- * @returns {Object} - Image metadata object.
- */
+
 function createImageObject(file, blob, base64) {
     return {
         filename: file.name,
-        fileType: blob.type,
+        fileType: 'image/jpeg',
         base64: base64,
-        size: blob.size
+        size: calculateBase64Size(base64) // richtige Größe des komprimierten Bildes
     };
 }
+
+function calculateBase64Size(base64String) {
+    let base64 = base64String.split(',')[1];
+    let padding = (base64.endsWith('==')) ? 2 : (base64.endsWith('=') ? 1 : 0);
+    return Math.ceil((base64.length * 3) / 4) - padding;
+}
+
+
 
 
 /**

@@ -355,6 +355,7 @@
 
 .task-contact-length {
     font-size: 18px;
+    margin-left: 10px;
 }
 
 .drag-area-highlight {
@@ -372,6 +373,7 @@
 }
 
 .task {
+    min-height: 230px;
     position: relative;
     width: 100%;
     padding: 16px;
@@ -724,4 +726,3 @@
 .d-none {
     display: none;
 }
-
