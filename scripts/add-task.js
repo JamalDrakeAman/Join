@@ -267,12 +267,17 @@ function updateDesign(id) {
  * using `updateDesign`. Finally, it calls `renderSelectedContacts` to refresh the
  * display of selected contacts.
  */
+
 function selectContact(id) {
+    if (!selectedContacts[id]) return; // ✅ Skip wenn kein gültiger Kontakt
+
     let currentContact = selectedContacts[id];
     currentContact.checked = !currentContact.checked;
     updateDesign(id);
     renderSelectedContacts();
 }
+
+
 
 /**
  * Renders the list of selected contacts in the designated container.
