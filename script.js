@@ -342,6 +342,7 @@ function openAddTask(taskCategory) {
     if (screenMode == "desktop") {
         updateBtnColor(prio);
         classChangeAction("add-task-overlay", "overlaver-active", "toggle");
+        initUploader(document.querySelector('#add-task-overlay'), false);
     }
 }
 

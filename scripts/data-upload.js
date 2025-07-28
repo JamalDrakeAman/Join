@@ -1,14 +1,50 @@
-const filepicker = document.getElementById('filepicker');
-const gallery = document.getElementById('gallery');
-const error = document.getElementById('error');
-const dropzone = document.getElementById('dropzone');
 
 let allImages = [];
 let isEditMode = false;
 let myGalleryViewer = null;
 
 
+/**
+ * Initializes the file uploader and drag-and-drop functionality.
+ * @param {HTMLElement} container - The DOM container holding the uploader elements.
+ * @param {boolean} [isEdit=false] - Indicates if edit mode is active.
+ * @returns {{gallery: HTMLElement, error: HTMLElement}} - References to gallery and error elements.
+ */
+function initUploader(container, isEdit = false) {
+    const filepicker = container.querySelector(isEdit ? '#filepicker-edit' : '#filepicker');
+    const dropzone = container.querySelector('#dropzone');
+    const gallery = container.querySelector('#gallery');
+    const error = container.querySelector('#error');
 
+    dropzone.addEventListener('click', () => filepicker.click());
+    dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => {
+        dropzone.classList.remove('dragover');
+    });
+    dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        handleFiles(Array.from(files));
+    });
+    filepicker.addEventListener('change', () => {
+        handleFiles(Array.from(filepicker.files));
+    });
+    return { gallery, error };
+}
+
+
+/**
+ * Compresses an image to given dimensions and quality.
+ * @param {File} file - The image file to compress.
+ * @param {number} [maxWidth=800] - Maximum width.
+ * @param {number} [maxHeight=800] - Maximum height.
+ * @param {number} [quality=0.8] - Compression quality (0 to 1).
+ * @returns {Promise<string>} - Base64 string of the compressed image.
+ */
 function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.8) {
     return readFileAsDataURL(file)
         .then(loadImage)
@@ -18,8 +54,8 @@ function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.8) {
 
 /**
  * Reads a file and returns its base64-encoded string.
- * @param {File} file - The file to read.
- * @returns {Promise<string>} - Base64 string of the file.
+ * @param {File} file
+ * @returns {Promise<string>}
  */
 function readFileAsDataURL(file) {
     return new Promise((resolve, reject) => {
@@ -33,8 +69,8 @@ function readFileAsDataURL(file) {
 
 /**
  * Loads an image from a base64 string.
- * @param {string} base64 - Base64-encoded image source.
- * @returns {Promise<HTMLImageElement>} - Loaded image element.
+ * @param {string} base64
+ * @returns {Promise<HTMLImageElement>}
  */
 function loadImage(base64) {
     return new Promise((resolve, reject) => {
@@ -46,7 +82,15 @@ function loadImage(base64) {
 }
 
 
-
+/**
+ * Resizes and compresses an image to base64.
+ * @param {HTMLImageElement} img
+ * @param {string} outputType - MIME type of the output image.
+ * @param {number} maxWidth
+ * @param {number} maxHeight
+ * @param {number} quality
+ * @returns {Promise<string>} - Compressed base64 string.
+ */
 function resizeAndCompressImage(img, outputType = 'image/jpeg', maxWidth, maxHeight, quality) {
     const { width, height } = getResizedDimensions(img, maxWidth, maxHeight);
     const canvas = document.createElement('canvas');
@@ -65,11 +109,11 @@ function resizeAndCompressImage(img, outputType = 'image/jpeg', maxWidth, maxHei
 
 
 /**
- * Calculates resized dimensions while keeping aspect ratio.
- * @param {HTMLImageElement} img - The original image.
- * @param {number} maxWidth - Maximum width.
- * @param {number} maxHeight - Maximum height.
- * @returns {{width: number, height: number}} - New dimensions.
+ * Calculates the resized dimensions maintaining aspect ratio.
+ * @param {HTMLImageElement} img
+ * @param {number} maxWidth
+ * @param {number} maxHeight
+ * @returns {{width: number, height: number}}
  */
 function getResizedDimensions(img, maxWidth, maxHeight) {
     let width = img.width;
@@ -88,7 +132,7 @@ function getResizedDimensions(img, maxWidth, maxHeight) {
 
 
 /**
- * Renders the image gallery and initializes Viewer.
+ * Renders the image gallery and initializes viewer if needed.
  */
 function render() {
     clearGallery();
@@ -106,7 +150,7 @@ function render() {
 
 
 /**
- * Clears the gallery DOM container.
+ * Clears the gallery element.
  */
 function clearGallery() {
     gallery.innerHTML = '';
@@ -114,49 +158,31 @@ function clearGallery() {
 
 
 /**
- * Creates the DOM element for a single image box.
- * @param {Object} image - The image object.
- * @param {number} index - Index in image array.
- * @param {Function} onLoadCallback - Called when image is loaded.
- * @returns {HTMLDivElement} - Image container element.
+ * Creates a DOM element for a single image in the gallery.
+ * @param {Object} image
+ * @param {number} index
+ * @param {Function} onLoadCallback
+ * @returns {HTMLElement}
  */
-// function createImageElement(image, index, onLoadCallback) {
-//     const imgBox = document.createElement('div');
-//     imgBox.classList.add('img-view-box');
-//     const img = document.createElement('img');
-//     img.classList.add('img-view');
-//     img.src = image.base64;
-//     img.alt = image.filename; 
-//     img.onload = onLoadCallback;
-//     const span = document.createElement('span');
-//     span.classList.add('file-name');
-//     span.textContent = image.filename;
-//     const deleteBtn = document.createElement('div');
-//     deleteBtn.classList.add('delete-btn');
-//     deleteBtn.textContent = '🗑️';
-//     deleteBtn.onclick = () => deleteImg(index);
-//     imgBox.appendChild(img);
-//     imgBox.appendChild(span);
-//     imgBox.appendChild(deleteBtn);
-//     return imgBox;
-// }
-
-
 function createImageElement(image, index, onLoadCallback) {
     const imgBox = document.createElement('div');
     imgBox.classList.add('img-view-box');
-
     const img = createImage(image, onLoadCallback);
     const span = createFilenameLabel(image.filename);
     const deleteBtn = createDeleteButton(index);
-
     imgBox.appendChild(img);
     imgBox.appendChild(span);
     imgBox.appendChild(deleteBtn);
-
     return imgBox;
 }
 
+
+/**
+ * Creates an image DOM element.
+ * @param {Object} image
+ * @param {Function} onLoadCallback
+ * @returns {HTMLImageElement}
+ */
 function createImage(image, onLoadCallback) {
     const img = document.createElement('img');
     img.classList.add('img-view');
@@ -166,6 +192,12 @@ function createImage(image, onLoadCallback) {
     return img;
 }
 
+
+/**
+ * Creates a label for the image filename.
+ * @param {string} filename
+ * @returns {HTMLSpanElement}
+ */
 function createFilenameLabel(filename) {
     const span = document.createElement('span');
     span.classList.add('file-name');
@@ -173,6 +205,12 @@ function createFilenameLabel(filename) {
     return span;
 }
 
+
+/**
+ * Creates a delete button for an image.
+ * @param {number} index
+ * @returns {HTMLDivElement}
+ */
 function createDeleteButton(index) {
     const btn = document.createElement('div');
     btn.classList.add('delete-btn');
@@ -182,51 +220,24 @@ function createDeleteButton(index) {
 }
 
 
-// function initViewerWhenAllLoaded(loaded, total) {
-//     if (loaded === total) {
-//         if (myGalleryViewer) {
-//             myGalleryViewer.destroy();
-//         }
-//         myGalleryViewer = new Viewer(gallery, {
-//             navbar: false,
-//             title: function (image) {
-//                 return image.alt || 'Untitled';
-//             },
-//             toolbar: {
-//                 zoomIn: 1,
-//                 zoomOut: 1,
-//                 oneToOne: 1,
-//                 reset: 1,
-//                 prev: 1,
-//                 play: false,
-//                 next: 1,
-//                 rotateLeft: 1,
-//                 rotateRight: 1,
-//                 flipHorizontal: 1,
-//                 flipVertical: 1,
-//                 download: function (image) {
-//                     const link = document.createElement('a');
-//                     link.href = image.src;
-//                     link.download = image.alt || 'download.jpg';
-//                     link.click();
-//                 }
-//             }
-//         });
-//     }
-// }
-
-
+/**
+ * Initializes the image viewer once all images have loaded.
+ * @param {number} loaded
+ * @param {number} total
+ */
 function initViewerWhenAllLoaded(loaded, total) {
     if (loaded !== total) return;
-
     if (myGalleryViewer) {
         myGalleryViewer.destroy();
     }
-
     myGalleryViewer = new Viewer(gallery, getViewerOptions());
 }
 
 
+/**
+ * Returns Viewer.js configuration options.
+ * @returns {Object}
+ */
 function getViewerOptions() {
     return {
         navbar: false,
@@ -255,8 +266,8 @@ function getViewerOptions() {
 
 
 /**
- * Destroys the viewer instance if no images are left.
- * @param {number} totalImages - Total number of images.
+ * Destroys the viewer instance if no images remain.
+ * @param {number} totalImages
  */
 function destroyViewerIfEmpty(totalImages) {
     if (totalImages === 0 && myGalleryViewer) {
@@ -267,7 +278,7 @@ function destroyViewerIfEmpty(totalImages) {
 
 
 /**
- * Saves the current image list to localStorage.
+ * Saves image array to localStorage.
  */
 function save() {
     let arrayAsString = JSON.stringify(allImages);
@@ -276,7 +287,7 @@ function save() {
 
 
 /**
- * Loads the image list from localStorage and renders it.
+ * Loads image data from localStorage and renders it.
  */
 function load() {
     let arrayAsString = localStorage.getItem('allImages');
@@ -288,9 +299,9 @@ function load() {
 
 
 /**
- * Converts a Blob to a base64-encoded string.
- * @param {Blob} blob - The blob to convert.
- * @returns {Promise<string>} - Base64 string.
+ * Converts a Blob to a base64 string.
+ * @param {Blob} blob
+ * @returns {Promise<string>}
  */
 function blobToBase64(blob) {
     return new Promise((resolve, _) => {
@@ -302,7 +313,7 @@ function blobToBase64(blob) {
 
 
 /**
- * Deletes all stored images and clears the gallery.
+ * Deletes all images and resets gallery and storage.
  */
 function deleteImages() {
     localStorage.removeItem('allImages');
@@ -313,7 +324,7 @@ function deleteImages() {
 
 /**
  * Deletes a single image by index.
- * @param {number} index - Index of the image to delete.
+ * @param {number} index
  */
 function deleteImg(index) {
     allImages.splice(index, 1); // Bild aus dem Array löschen
@@ -322,53 +333,10 @@ function deleteImg(index) {
 }
 
 
-/**
- * Handles click event on the dropzone.
- * Triggers the hidden file input element to open the file picker dialog.
- */
-dropzone.addEventListener('click', () => filepicker.click());
-
 
 /**
- * Handles the dragover event on the dropzone.
- * Prevents the default behavior to allow dropping,
- * and visually indicates that the dropzone is active.
- * 
- * @param {DragEvent} e - The dragover event object.
- */
-dropzone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropzone.classList.add('dragover');
-});
-
-
-/**
- * Handles the dragleave event on the dropzone.
- * Removes the visual highlight when the dragged item leaves the dropzone.
- */
-dropzone.addEventListener('dragleave', () => {
-    dropzone.classList.remove('dragover');
-});
-
-
-/**
- * Handles the drop event on the dropzone.
- * Prevents the default behavior, removes the visual highlight,
- * retrieves the dropped files, and passes them to the file handler.
- * 
- * @param {DragEvent} e - The drop event object.
- */
-dropzone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropzone.classList.remove('dragover');
-    const files = e.dataTransfer.files;
-    handleFiles(Array.from(files));
-});
-
-
-/**
- * Handles file drop or selection input.
- * @param {File[]} files - Array of uploaded files.
+ * Handles file input or drop event.
+ * @param {File[]} files
  */
 async function handleFiles(files) {
     for (const file of files) {
@@ -388,7 +356,11 @@ async function handleFiles(files) {
 }
 
 
-
+/**
+ * Checks if the file type and extension are allowed.
+ * @param {File} file
+ * @returns {boolean}
+ */
 function isFileTypeAllowed(file) {
     const allowedTypes = ['image/jpeg', 'image/png'];
     const allowedExtensions = ['.jpg', '.jpeg', '.png'];
@@ -407,7 +379,13 @@ function isFileSizeAllowed(blob) {
 }
 
 
-
+/**
+ * Creates an image object for gallery use.
+ * @param {File} file
+ * @param {Blob} blob
+ * @param {string} base64
+ * @returns {Object}
+ */
 function createImageObject(file, blob, base64) {
     return {
         filename: file.name,
@@ -417,13 +395,17 @@ function createImageObject(file, blob, base64) {
     };
 }
 
+
+/**
+ * Calculates size of base64 string in bytes.
+ * @param {string} base64String
+ * @returns {number}
+ */
 function calculateBase64Size(base64String) {
     let base64 = base64String.split(',')[1];
     let padding = (base64.endsWith('==')) ? 2 : (base64.endsWith('=') ? 1 : 0);
     return Math.ceil((base64.length * 3) / 4) - padding;
 }
-
-
 
 
 /**
@@ -445,18 +427,9 @@ function addImage(imageObj) {
 
 /**
  * Displays an error message temporarily.
- * @param {string} message - Message to display.
+ * @param {string} message
  */
 function showError(message) {
     error.textContent = message;
     setTimeout(() => error.textContent = '', 4000);
 }
-
-
-/**
- * Handles the change event on the hidden file input.
- * Converts the selected FileList into an array and passes it to the file handler.
- */
-filepicker.addEventListener('change', () => {
-    handleFiles(Array.from(filepicker.files));
-});

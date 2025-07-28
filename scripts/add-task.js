@@ -21,6 +21,7 @@ async function addTaskInit() {
     userInContatcs();
     getSelectedContacts();
     renderContacts(selectedContacts);
+    initUploader(document.querySelector('#add-task'), false);
 }
 
 /**
