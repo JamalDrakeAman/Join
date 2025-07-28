@@ -376,7 +376,7 @@ function editBoardTaskHTML(currentTask) {
 
                         <div class="add-file-box" id="dropzone">
                             <span>Drag a file or browse</span> <img src="assets/icons/add-icon.png" alt="">
-                            <input type="file" id="filepicker" style="display: none;" accept="image/*" multiple />
+                            <input type="file" id="filepicker-edit" style="display: none;" accept="image/*" multiple />
                         </div>
 
                         <div class="edit-gallery" id="gallery"></div>

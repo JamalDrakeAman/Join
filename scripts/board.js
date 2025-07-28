@@ -290,6 +290,7 @@ function showEditTaskValues() {
     editTaskSubtask();
     updateBtnColor(currentTask.prio);
     taskPrioText();
+    initUploader(document.querySelector('.task-overlay'), true);
 }
 
 
