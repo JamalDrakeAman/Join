@@ -289,13 +289,32 @@ function selectContact(id) {
  * HTML for each using the `contactSelectionCircleHTML` function, along with the initials
  * of each contact's name.
  */
+// function renderSelectedContacts() {
+//     const containerRef = document.getElementById("selected-contacts-container");
+//     containerRef.innerHTML = "";
+//     let assignedToContacts = selectedContacts.filter((c) => c.checked == true);
+
+//     for (let contact of assignedToContacts) {
+//         containerRef.innerHTML += contactSelectionCircleHTML(contact);
+//     }
+// }
+
 function renderSelectedContacts() {
     const containerRef = document.getElementById("selected-contacts-container");
     containerRef.innerHTML = "";
     let assignedToContacts = selectedContacts.filter((c) => c.checked == true);
 
-    for (let contact of assignedToContacts) {
+    // Begrenze auf maximal 5 Kontakte
+    const maxContactsToShow = 5;
+    const limitedContacts = assignedToContacts.slice(0, maxContactsToShow);
+
+    for (let contact of limitedContacts) {
         containerRef.innerHTML += contactSelectionCircleHTML(contact);
+    }
+
+    // Optional: Hinweis anzeigen, wenn mehr als 5 ausgewählt wurden
+    if (assignedToContacts.length > maxContactsToShow) {
+        containerRef.innerHTML += `<div class="more-contacts-hint">+${assignedToContacts.length - maxContactsToShow}</div>`;
     }
 }
 

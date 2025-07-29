@@ -138,7 +138,7 @@ button {
 
 .form-error {
     display: flex;
-    width: 100%;
+    width: 111%;
     justify-content: center;
     color: red;
     position: absolute;

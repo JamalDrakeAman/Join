@@ -120,8 +120,15 @@ input::placeholder,
 
 .selectet-contacts-container {
     margin-top: 4px;
+    height: 40px;
     gap: 4px;
     flex-wrap: wrap;
+}
+
+.more-contacts-hint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .contact {
@@ -531,6 +538,3 @@ select option[value=""] {
     align-items: center;
     gap: 20px;
 }
-
-
-
