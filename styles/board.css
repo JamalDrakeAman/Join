@@ -469,7 +469,7 @@
 
 .task-overlay-title {
     width: 100%;
-    font-size: 47px;
+    font-size: 35px;
     word-break: break-word;
 }
 
@@ -533,7 +533,7 @@
 
 .subtask-overlay {
     max-height: 200px;
-    overflow: auto;
+    /* overflow: auto; */
 }
 
 .task-overlay-edit-btns {
