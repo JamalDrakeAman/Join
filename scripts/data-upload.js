@@ -1,39 +1,68 @@
-
 let allImages = [];
 let isEditMode = false;
 let myGalleryViewer = null;
 
 
+
 /**
- * Initializes the file uploader and drag-and-drop functionality.
- * @param {HTMLElement} container - The DOM container holding the uploader elements.
- * @param {boolean} [isEdit=false] - Indicates if edit mode is active.
- * @returns {{gallery: HTMLElement, error: HTMLElement}} - References to gallery and error elements.
+ * Initializes the file uploader by setting up the dropzone and file picker.
+ * @param {HTMLElement} container - The container element that holds the dropzone and file picker.
+ * @param {boolean} [isEdit=false] - Whether the uploader is in edit mode (selects a different file input).
+ * @returns {{gallery: HTMLElement, error: HTMLElement}} - The gallery and error DOM elements.
  */
 function initUploader(container, isEdit = false) {
-    const filepicker = container.querySelector(isEdit ? '#filepicker-edit' : '#filepicker');
+    const filepicker = getFilePicker(container, isEdit);
     const dropzone = container.querySelector('#dropzone');
     const gallery = container.querySelector('#gallery');
     const error = container.querySelector('#error');
+    setupDropzoneEvents(dropzone, filepicker);
+    setupFilepickerEvents(filepicker);
+    return { gallery, error };
+}
 
+
+/**
+ * Retrieves the correct file input element based on edit mode.
+ * @param {HTMLElement} container - The parent container holding the file input.
+ * @param {boolean} isEdit - Flag indicating edit mode.
+ * @returns {HTMLInputElement} - The file input element.
+ */
+function getFilePicker(container, isEdit) {
+    return container.querySelector(isEdit ? '#filepicker-edit' : '#filepicker');
+}
+
+
+/**
+ * Sets up event listeners for the dropzone, including drag and drop behavior.
+ * @param {HTMLElement} dropzone - The dropzone element where files can be dragged and dropped.
+ * @param {HTMLInputElement} filepicker - The hidden file input triggered by clicking the dropzone.
+ */
+function setupDropzoneEvents(dropzone, filepicker) {
     dropzone.addEventListener('click', () => filepicker.click());
-    dropzone.addEventListener('dragover', (e) => {
+    dropzone.addEventListener('dragover', e => {
         e.preventDefault();
         dropzone.classList.add('dragover');
     });
     dropzone.addEventListener('dragleave', () => {
         dropzone.classList.remove('dragover');
     });
-    dropzone.addEventListener('drop', (e) => {
+    dropzone.addEventListener('drop', e => {
         e.preventDefault();
         dropzone.classList.remove('dragover');
         const files = e.dataTransfer.files;
         handleFiles(Array.from(files));
     });
+}
+
+
+/**
+ * Sets up the change event listener for the file input to handle file selection.
+ * @param {HTMLInputElement} filepicker - The file input element used to select files.
+ */
+function setupFilepickerEvents(filepicker) {
     filepicker.addEventListener('change', () => {
         handleFiles(Array.from(filepicker.files));
     });
-    return { gallery, error };
 }
 
 
