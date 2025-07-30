@@ -279,32 +279,10 @@ function selectContact(id) {
 }
 
 
-
-/**
- * Renders the list of selected contacts in the designated container.
- *
- * This function clears the current content of the "selected-contacts-container"
- * and populates it with HTML for each selected contact. It filters the `selectedContacts`
- * array to find contacts that are checked (selected) and then generates the corresponding
- * HTML for each using the `contactSelectionCircleHTML` function, along with the initials
- * of each contact's name.
- */
-// function renderSelectedContacts() {
-//     const containerRef = document.getElementById("selected-contacts-container");
-//     containerRef.innerHTML = "";
-//     let assignedToContacts = selectedContacts.filter((c) => c.checked == true);
-
-//     for (let contact of assignedToContacts) {
-//         containerRef.innerHTML += contactSelectionCircleHTML(contact);
-//     }
-// }
-
 function renderSelectedContacts() {
     const containerRef = document.getElementById("selected-contacts-container");
     containerRef.innerHTML = "";
     let assignedToContacts = selectedContacts.filter((c) => c.checked == true);
-
-    // Begrenze auf maximal 5 Kontakte
     const maxContactsToShow = 5;
     const limitedContacts = assignedToContacts.slice(0, maxContactsToShow);
 
@@ -312,7 +290,6 @@ function renderSelectedContacts() {
         containerRef.innerHTML += contactSelectionCircleHTML(contact);
     }
 
-    // Optional: Hinweis anzeigen, wenn mehr als 5 ausgewählt wurden
     if (assignedToContacts.length > maxContactsToShow) {
         containerRef.innerHTML += `<div class="more-contacts-hint">+${assignedToContacts.length - maxContactsToShow}</div>`;
     }
