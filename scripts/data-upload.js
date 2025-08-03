@@ -2,8 +2,6 @@ let allImages = [];
 let isEditMode = false;
 let myGalleryViewer = null;
 
-
-
 /**
  * Initializes the file uploader by setting up the dropzone and file picker.
  * @param {HTMLElement} container - The container element that holds the dropzone and file picker.
@@ -20,7 +18,6 @@ function initUploader(container, isEdit = false) {
     return { gallery, error };
 }
 
-
 /**
  * Retrieves the correct file input element based on edit mode.
  * @param {HTMLElement} container - The parent container holding the file input.
@@ -30,7 +27,6 @@ function initUploader(container, isEdit = false) {
 function getFilePicker(container, isEdit) {
     return container.querySelector(isEdit ? '#filepicker-edit' : '#filepicker');
 }
-
 
 /**
  * Sets up event listeners for the dropzone, including drag and drop behavior.
@@ -54,7 +50,6 @@ function setupDropzoneEvents(dropzone, filepicker) {
     });
 }
 
-
 /**
  * Sets up the change event listener for the file input to handle file selection.
  * @param {HTMLInputElement} filepicker - The file input element used to select files.
@@ -64,7 +59,6 @@ function setupFilepickerEvents(filepicker) {
         handleFiles(Array.from(filepicker.files));
     });
 }
-
 
 /**
  * Compresses an image to given dimensions and quality.
@@ -80,7 +74,6 @@ function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.8) {
         .then(img => resizeAndCompressImage(img, file.type, maxWidth, maxHeight, quality));
 }
 
-
 /**
  * Reads a file and returns its base64-encoded string.
  * @param {File} file
@@ -95,7 +88,6 @@ function readFileAsDataURL(file) {
     });
 }
 
-
 /**
  * Loads an image from a base64 string.
  * @param {string} base64
@@ -109,7 +101,6 @@ function loadImage(base64) {
         img.src = base64;
     });
 }
-
 
 /**
  * Resizes and compresses an image to base64.
@@ -136,7 +127,6 @@ function resizeAndCompressImage(img, outputType = 'image/jpeg', maxWidth, maxHei
     });
 }
 
-
 /**
  * Calculates the resized dimensions maintaining aspect ratio.
  * @param {HTMLImageElement} img
@@ -159,7 +149,6 @@ function getResizedDimensions(img, maxWidth, maxHeight) {
     return { width, height };
 }
 
-
 /**
  * Renders the image gallery and initializes viewer if needed.
  */
@@ -177,14 +166,12 @@ function render() {
     destroyViewerIfEmpty(totalImages);
 }
 
-
 /**
  * Clears the gallery element.
  */
 function clearGallery() {
     gallery.innerHTML = '';
 }
-
 
 /**
  * Creates a DOM element for a single image in the gallery.
@@ -205,7 +192,6 @@ function createImageElement(image, index, onLoadCallback) {
     return imgBox;
 }
 
-
 /**
  * Creates an image DOM element.
  * @param {Object} image
@@ -221,7 +207,6 @@ function createImage(image, onLoadCallback) {
     return img;
 }
 
-
 /**
  * Creates a label for the image filename.
  * @param {string} filename
@@ -233,7 +218,6 @@ function createFilenameLabel(filename) {
     span.textContent = filename;
     return span;
 }
-
 
 /**
  * Creates a delete button for an image.
@@ -248,7 +232,6 @@ function createDeleteButton(index) {
     return btn;
 }
 
-
 /**
  * Initializes the image viewer once all images have loaded.
  * @param {number} loaded
@@ -261,7 +244,6 @@ function initViewerWhenAllLoaded(loaded, total) {
     }
     myGalleryViewer = new Viewer(gallery, getViewerOptions());
 }
-
 
 /**
  * Returns Viewer.js configuration options.
@@ -293,7 +275,6 @@ function getViewerOptions() {
     };
 }
 
-
 /**
  * Destroys the viewer instance if no images remain.
  * @param {number} totalImages
@@ -305,7 +286,6 @@ function destroyViewerIfEmpty(totalImages) {
     }
 }
 
-
 /**
  * Saves image array to localStorage.
  */
@@ -313,7 +293,6 @@ function save() {
     let arrayAsString = JSON.stringify(allImages);
     localStorage.setItem('allImages', arrayAsString);
 }
-
 
 /**
  * Loads image data from localStorage and renders it.
@@ -325,7 +304,6 @@ function load() {
         render();
     }
 }
-
 
 /**
  * Converts a Blob to a base64 string.
@@ -340,7 +318,6 @@ function blobToBase64(blob) {
     });
 }
 
-
 /**
  * Deletes all images and resets gallery and storage.
  */
@@ -349,7 +326,6 @@ function deleteImages() {
     allImages = [];
     render();
 }
-
 
 /**
  * Deletes a single image by index.
@@ -360,8 +336,6 @@ function deleteImg(index) {
     save();                     
     render();
 }
-
-
 
 /**
  * Handles file input or drop event.
@@ -384,7 +358,6 @@ async function handleFiles(files) {
     }
 }
 
-
 /**
  * Checks if the file type and extension are allowed.
  * @param {File} file
@@ -397,7 +370,6 @@ function isFileTypeAllowed(file) {
     return allowedTypes.includes(file.type) && allowedExtensions.includes(ext);
 }
 
-
 /**
  * Validates the file size.
  * @param {Blob} blob - File blob to check.
@@ -406,7 +378,6 @@ function isFileTypeAllowed(file) {
 function isFileSizeAllowed(blob) {
     return blob.size <= 5000000;
 }
-
 
 /**
  * Creates an image object for gallery use.
@@ -424,7 +395,6 @@ function createImageObject(file, blob, base64) {
     };
 }
 
-
 /**
  * Calculates size of base64 string in bytes.
  * @param {string} base64String
@@ -435,7 +405,6 @@ function calculateBase64Size(base64String) {
     let padding = (base64.endsWith('==')) ? 2 : (base64.endsWith('=') ? 1 : 0);
     return Math.ceil((base64.length * 3) / 4) - padding;
 }
-
 
 /**
  * Adds an image to the appropriate image list and renders.
@@ -452,7 +421,6 @@ function addImage(imageObj) {
         render();
     }
 }
-
 
 /**
  * Displays an error message temporarily.

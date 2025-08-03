@@ -71,7 +71,6 @@ function renderTasks(tasks, getById, noTask) {
     }
 }
 
-
 function checkFileLength(task) {
     if (task.files == undefined) {
         return 0;
@@ -234,7 +233,6 @@ function showEditTaskValues() {
     initUploader(document.querySelector('.task-overlay'), true);
 }
 
-
 function renderEditGallery(task) {
     const gallery = document.getElementById('gallery');
     gallery.innerHTML = '';
@@ -251,14 +249,12 @@ function renderEditGallery(task) {
     });
 }
 
-
 function deleteEditImage(index) {
     if (currentTask.files) {
         currentTask.files.splice(index, 1); 
         renderEditGallery(currentTask);     
     }
 }
-
 
 /**
  * Edits the task's assigned contacts.
@@ -357,8 +353,6 @@ function deleteSubtask(i) {
     renderSubtaskEdit(currentSubtasks);
     classChangeAction("overlaver", "overlaver-active", "remove");
 }
-
-
 
 /**
  * Filters and renders tasks across different categories based on the search input.

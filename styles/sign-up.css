@@ -203,7 +203,9 @@ h1 {
     font-size: 12px;
     position: absolute;
     top: 47%;
-    left: 31%;
+    left: 0%;
+    width: 100%;
+    text-align: center;
     display: none;
 }
 
