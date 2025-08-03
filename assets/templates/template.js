@@ -371,7 +371,7 @@ function editBoardTaskHTML(currentTask) {
                         <label for="assign-to-dropdown">Attachments</label>
                         <div class="allow-delete-box">
                             <span class="allowed-info">Allowed file types are JPEG and PNG</span>
-                            <!-- <div onclick="deleteImages()" class="delete-all-btn"><img src="assets/icons/delete.png" alt=""> Delete all</div> -->
+                
                         </div>
 
                         <div class="add-file-box" id="dropzone">
