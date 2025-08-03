@@ -270,8 +270,7 @@ function updateDesign(id) {
  */
 
 function selectContact(id) {
-    if (!selectedContacts[id]) return; // ✅ Skip wenn kein gültiger Kontakt
-
+    if (!selectedContacts[id]) return;
     let currentContact = selectedContacts[id];
     currentContact.checked = !currentContact.checked;
     updateDesign(id);

@@ -257,23 +257,52 @@ h1 {
 }
 
 .dialog {
-    position: absolute;
-    align-self: center;
-    bottom: 0;
-    height: 64px;
-    transition: 100ms ease-in-out;
-    transform: translateY(70px);
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: var(--darke-blue);
     color: var(--white);
-    padding: 16px;
+    padding: 16px 32px;
     font-size: 16px;
-    text-wrap: nowrap;
     border-radius: 12px;
-    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
 }
 
 .dialog-active {
-    transform: translateY(-50vh);
+    bottom: 100px;
+    opacity: 1;
+    pointer-events: all;
+}
+
+
+@keyframes fadeDialog {
+    0% {
+        opacity: 0;
+        bottom: -100px;
+    }
+
+    30% {
+        opacity: 1;
+        bottom: 100px;
+    }
+
+    70% {
+        opacity: 1;
+        bottom: 100px;
+    }
+
+    100% {
+        opacity: 0;
+        bottom: -100px;
+    }
+}
+
+.dialog.dialog-active {
+    animation: fadeDialog 2s ease-in-out forwards;
 }
 
 .form-inputs-container {

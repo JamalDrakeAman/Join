@@ -252,9 +252,8 @@ async function deleteContact() {
  * @returns {Promise<void>} - A promise that resolves once the contact has been removed from all relevant tasks.
  */
 async function deleteTaskContact(deleteKey) {
-    let response = await getData("/tasks"); // Warten auf das Auflösen der Daten
-    let keyOfTask = Object.keys(response); // Extrahiere die Keys aus den Tasks
-
+    let response = await getData("/tasks"); 
+    let keyOfTask = Object.keys(response); 
     for (let i = 0; i < keyOfTask.length; i++) {
         const key = keyOfTask[i];
         let task = response[key];

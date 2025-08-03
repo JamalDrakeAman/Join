@@ -356,8 +356,8 @@ function deleteImages() {
  * @param {number} index
  */
 function deleteImg(index) {
-    allImages.splice(index, 1); // Bild aus dem Array löschen
-    save();                     // Speicher aktualisieren
+    allImages.splice(index, 1); 
+    save();                     
     render();
 }
 
@@ -420,7 +420,7 @@ function createImageObject(file, blob, base64) {
         filename: file.name,
         fileType: 'image/jpeg',
         base64: base64,
-        size: calculateBase64Size(base64) // richtige Größe des komprimierten Bildes
+        size: calculateBase64Size(base64)
     };
 }
 

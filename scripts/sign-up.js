@@ -10,7 +10,17 @@ async function signUp() {
     let userEmailInput = document.getElementById("email-input").value;
     let userPwd = document.getElementById("user-pwd").value;
     let userConfPwd = document.getElementById("user-conf-pwd").value;
-    checkbox = document.getElementById("myCheckbox");                         
+    checkbox = document.getElementById("myCheckbox");   
+    if (!isValidEmail(userEmailInput)) {
+        let userEmailError = document.getElementById("email-error");
+        let userEmailContainer = document.getElementById("email-input-container");
+        userEmailError.textContent = "Please enter a valid email address!";
+        userEmailError.classList.add("visible");
+        userEmailContainer.classList.add("red-border");
+        shake(userEmailError);
+        return;
+    }
+    toogleDialog("dialog-signup-checking");
     await checkIfUserAllreadyExists(userNameInput, userEmailInput, userPwd, userConfPwd, checkbox);
     errorStyles(userNameInput, userEmailInput, userPwd, userConfPwd);
 }
@@ -31,6 +41,14 @@ async function capitalizeFirstLetter(userEmailInput, userPwd) {
         await postSignUpData(userNameValue, userEmailInput, userPwd);
     }
 }
+
+
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
 
 /**
  * Checks if the email contains an "@" symbol and applies error styles if not.
@@ -213,23 +231,20 @@ async function checkIfAllInputsFilled(userNameInput, userEmailInput, userPwd, us
  * @param {string} userPwd - The user's password.
  */
 async function postSignUpData(userNameInput, userEmailInput, userPwd) {
-    await postData(
-        (path = "/users"),
-        (data = {
-            name: userNameInput,
-            email: userEmailInput,
-            password: userPwd,
-            color: "#29ABE3",
-        })
-    );
+    await postData("/users", {
+        name: userNameInput,
+        email: userEmailInput,
+        password: userPwd,
+        color: "#29ABE3",
+    });
     document.getElementById("name-input").value = "";
     document.getElementById("email-input").value = "";
     document.getElementById("user-pwd").value = "";
     document.getElementById("user-conf-pwd").value = "";
-
+    toogleDialog("dialog-signup-succes");
     setTimeout(() => {
         goLogin();
-    }, 1500);
+    }, 2000); 
 }
 
 /**
@@ -368,4 +383,13 @@ function toogleDialog(id) {
     setTimeout(function () {
         document.getElementById(id).classList.remove("dialog-active");
     }, 2000);
+}
+
+function userAlreadyExistsMsg(errorInput, errorText) {
+    let errorRef = document.getElementById(errorInput);
+    errorRef.innerHTML = `User ${errorText} already exists`;
+    errorRef.style.display = "block";
+    shake(errorRef);
+
+    toogleDialog("dialog-allready-exists");
 }
