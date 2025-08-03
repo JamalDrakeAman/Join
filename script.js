@@ -354,10 +354,8 @@ function styleSelecet() {
         select.classList.add("s-hidden");
         var styledSelect = createStyledSelect(select);
         select.parentNode.insertBefore(styledSelect, select.nextSibling);
-
         var list = createOptionsList(select);
         select.parentNode.insertBefore(list, styledSelect.nextSibling);
-
         hideFirst(select, list);
         selection(select, styledSelect, list);
     });
@@ -411,7 +409,6 @@ function selection(select, styledSelect, list) {
     styledSelect.addEventListener("click", function (e) {
         e.stopPropagation();
         closeOtherSelects(styledSelect);
-
         styledSelect.classList.toggle("active");
         list.style.display = styledSelect.classList.contains("active") ? "block" : "none";
         if (styledSelect.classList.contains("active")) 
@@ -448,7 +445,6 @@ function closeList(list, styledSelect, select) {
             list.style.display = "none";
         }
     });
-
     document.addEventListener("click", function () {
         styledSelect.classList.remove("active");
         list.style.display = "none";
